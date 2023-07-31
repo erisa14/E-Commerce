@@ -74,4 +74,12 @@ public class User {
     @JoinColumn(name="role_id")
     private Role role;
 
+    @Column(updatable=false)
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Order> orders;
+
+    @Column(updatable=false)
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<ShoppingCart> shoppingCarts;
+
 }
