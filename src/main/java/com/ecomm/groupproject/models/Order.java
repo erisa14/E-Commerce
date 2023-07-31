@@ -1,9 +1,11 @@
 package com.ecomm.groupproject.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -23,16 +25,20 @@ public class Order {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate orderDate;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private LocalDate deliveryDate;
+    @NotBlank
+    private String address;
 
+    @NotBlank
+    private String city;
+
+    @NotNull
+    private int zipCode;
     private String notes;
 
     private double shippingFee=3.50;
 
     public Order() {
         this.orderDate = LocalDate.now();
-        this.deliveryDate=LocalDate.now().plusDays(3);
     }
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")

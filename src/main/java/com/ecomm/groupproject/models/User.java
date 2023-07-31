@@ -82,4 +82,6 @@ public class User {
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<ShoppingCart> shoppingCarts;
 
+    @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private Wishlist wishlist;
 }

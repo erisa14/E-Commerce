@@ -33,7 +33,11 @@ public class Product {
     @NotBlank
     private String image;
 
-    @Min(1)
+    @NotBlank
+    private String brand;
+
+    @NotBlank
+    private  String color;
     private int quantity;
 
     @Column(updatable=false)
@@ -47,5 +51,8 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private Wishlist wishlist;
 
 }
