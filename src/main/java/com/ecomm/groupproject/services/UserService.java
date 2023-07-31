@@ -27,7 +27,7 @@ public class UserService {
         boolean isFirstUser = userRepository.count() == 0;
 
         // Assign roles based on the user count
-        Role defaultRole = roleRepository.findByName("Customer"); // Replace "Customer" with your default role name
+        Role defaultRole = roleRepository.findByName("Customer");
         Role adminRole = roleRepository.findByName("Admin");
 
         //Email taken
@@ -83,5 +83,6 @@ public class UserService {
     public User findUserById(Long id){
         return this.userRepository.findById(id).orElse(null);
     }
+
 
 }

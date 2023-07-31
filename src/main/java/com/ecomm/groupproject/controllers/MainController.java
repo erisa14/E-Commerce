@@ -2,6 +2,7 @@ package com.ecomm.groupproject.controllers;
 
 import com.ecomm.groupproject.models.LoginUser;
 import com.ecomm.groupproject.models.User;
+import com.ecomm.groupproject.services.OrderService;
 import com.ecomm.groupproject.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MainController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/")
     public String index(Model model, @ModelAttribute("newUser") User newUser,
@@ -24,7 +27,12 @@ public class MainController {
         Long loggedInUserId=(Long) session.getAttribute("loggedInUserId");
 
         if (loggedInUserId!=null){
-            return "redirect: /dashboard";
+            User user=userService.findUserById(loggedInUserId);
+            if (user.getRole().getName().equals("ADMIN")) {
+                return "redirect:/admin/home";
+            }
+            else
+                return "redirect:/users/home";
         }
         model.addAttribute("newUser", new User());
         model.addAttribute("newLogin", new LoginUser());
@@ -40,7 +48,12 @@ public class MainController {
             return "index";
         }
         session.setAttribute("loggedInUserId", newUser.getId());
-        return "redirect:/dashboard";
+
+        if (newUser.getRole().getName().equals("ADMIN")) {
+            return "redirect:/admin/home";
+        }
+        else
+            return "redirect:/users/home";
     }
 
     @PostMapping("/login")
@@ -53,9 +66,15 @@ public class MainController {
             return "index";
         }
         session.setAttribute("loggedInUserId", user.getId());
-        return "redirect:/dashboard";
+
+
+        if (user.getRole().getName().equals("ADMIN")) {
+            return "redirect:/admin/home";
+        }
+        else
+            return "redirect:/index";
     }
-    @GetMapping("/dashboard")
+    @GetMapping("/admin/home")
     public String dashboard(HttpSession session, Model model){
         Long loggedInUserId=(Long) session.getAttribute("loggedInUserId");
         if (loggedInUserId==null){
@@ -63,7 +82,8 @@ public class MainController {
         }
         User loggedInUser=userService.findUserById(loggedInUserId);
         model.addAttribute("user",loggedInUser);
-        return "dashboard";
+        model.addAttribute("orders", orderService.getAll());
+        return "viewOrders";
     }
     @GetMapping("/logout")
     public String logout(HttpSession session){
