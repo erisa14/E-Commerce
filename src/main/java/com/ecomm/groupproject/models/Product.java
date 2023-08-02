@@ -22,7 +22,7 @@ public class Product {
     private Long id;
 
     @NotBlank
-    private String name;
+    private String productName;
 
     @NotBlank
     private String description;
