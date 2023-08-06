@@ -24,6 +24,7 @@
             </tr>
             </thead>
             <tbody>
+            <%--@elvariable id="newUser" type="aj"--%>
             <form:form modelAttribute="newUser" action="/register" method="post" class="form gap-3 d-flex flex-column">
             <tr>
                 <td class="col-sm-6">
@@ -110,6 +111,7 @@
             </tr>
             </thead>
             <tbody>
+            <%--@elvariable id="newLogin" type="aj"--%>
             <form:form modelAttribute="newLogin" action="/login" method="post" class="form gap-3 d-flex flex-column">
             <tr>
                 <td class="col-sm-6">
