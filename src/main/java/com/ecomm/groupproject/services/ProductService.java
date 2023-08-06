@@ -13,12 +13,6 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> getByCategory(Category category){
-        return productRepository.findByCategory(category);
-    }
-
-
-    //get all products  --  by joana
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
