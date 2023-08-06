@@ -13,11 +13,31 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+
+    public void addCategory(Product product, Category category){
+        List<Category> categories= (List<Category>) product.getCategory();
+        categories.add(category);
+        productRepository.save(product);
     }
-    public List<Product> getByCategoryName(Category category){
+
+    public Product create(Product product){
+        return productRepository.save(product);
+    }
+
+    public List<Product> getByCategory(Category category){
         return productRepository.findByCategory(category);
+    }
+    public void deleteProduct(Long id){
+        productRepository.deleteById(id);
+    }
+
+    public Product find(Long id){
+        return productRepository.findById(id).orElse(null);
+    }
+
+    public void update(Product product) {
+        productRepository.save(product);
     }
 
 }
+
