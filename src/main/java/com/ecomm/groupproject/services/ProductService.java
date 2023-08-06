@@ -13,6 +13,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+
     public void addCategory(Product product, Category category){
         List<Category> categories= (List<Category>) product.getCategory();
         categories.add(category);
@@ -36,6 +37,14 @@ public class ProductService {
 
     public void update(Product product) {
         productRepository.save(product);
+    }
+
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+    public List<Product> getByCategoryName(Category category){
+        return productRepository.findByCategory(category);
     }
 
 }

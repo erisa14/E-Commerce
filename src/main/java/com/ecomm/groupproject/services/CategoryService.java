@@ -1,14 +1,13 @@
 package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.Category;
-import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class CategoryService {
@@ -26,13 +25,19 @@ public class CategoryService {
         return this.categoryRepository.findById(id).orElse(null);
     }
 
+
     public List<Category> getAll(){
         return (List<Category>) categoryRepository.findAll();
     }
+
 
     public void deleteCategory(Long id){
         categoryRepository.deleteById(id);
     }
 
+
+    public Category getByName(String name){
+        return this.categoryRepository.findByName(name).orElse(null);
+    }
 
 }
