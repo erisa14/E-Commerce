@@ -22,7 +22,7 @@ public class Product {
     private Long id;
 
     @NotBlank
-    private String name;
+    private String productName;
 
     @NotBlank
     private String description;
@@ -52,7 +52,7 @@ public class Product {
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="product_id")
+    @JoinColumn(name="wishlist_id")
     private Wishlist wishlist;
 
 }
