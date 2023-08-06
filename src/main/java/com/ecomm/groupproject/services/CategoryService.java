@@ -1,14 +1,15 @@
 package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.Category;
-import com.ecomm.groupproject.models.User;
+
 import com.ecomm.groupproject.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
-import java.util.Optional;
+
+
 
 @Service
 public class CategoryService {
@@ -19,7 +20,7 @@ public class CategoryService {
         if (categoryRepository.findByName(newCategory.getName()).isPresent()) {
             result.rejectValue("name", "CategoryExists", "Category already exists");
         }
-            return categoryRepository.save(newCategory);
+        return categoryRepository.save(newCategory);
     }
 
     public Category findById(Long id){
@@ -36,3 +37,5 @@ public class CategoryService {
 
 
 }
+
+

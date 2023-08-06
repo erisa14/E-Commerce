@@ -13,6 +13,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+
     public void addCategory(Product product, Category category){
         List<Category> categories= (List<Category>) product.getCategory();
         categories.add(category);
@@ -39,3 +40,4 @@ public class ProductService {
     }
 
 }
+
