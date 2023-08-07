@@ -36,6 +36,9 @@ public class CategoryService {
     }
 
 
+    public Category getByName(String category) {
+        return null;
+    }
 }
 
 

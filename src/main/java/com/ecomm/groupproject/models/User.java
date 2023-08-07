@@ -84,4 +84,8 @@ public class User {
 
     @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Wishlist wishlist;
+
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="shipping_id")
+    private ShippingDetails shippingDetails;
 }

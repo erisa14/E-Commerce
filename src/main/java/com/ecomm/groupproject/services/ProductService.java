@@ -39,5 +39,12 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public Object getByCategoryName(Category categoryName) {
+        return null;
+    }
+
+    public Object getAllProducts() {
+        return null;
+    }
 }
 
