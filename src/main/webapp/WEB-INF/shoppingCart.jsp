@@ -75,10 +75,10 @@
     </tr>
     <c:forEach items="${cartItems}" var="cartItem">
         <tr>
-            <td>${cartItem.product.name}</td>
+            <td>${cartItem.product.productName}</td>
             <td>${cartItem.product.price}</td>
             <td>
-                <img src="${cartItem.product.image}" alt="${cartItem.product.name}" width="100" height="100">
+                <img src="${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
             </td>
         </tr>
     </c:forEach>
