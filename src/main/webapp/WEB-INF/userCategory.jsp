@@ -71,20 +71,14 @@
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" style="border: transparent solid 1px; color: #1254a1; font-weight: bold">Categories</button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/home" style="color: #1254a1">All products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/laptop" style="color: #1254a1">Laptops</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/cellphone" style="color: #1254a1">Cellphones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/pc" style="color: #1254a1">PCs</a>
-                    </li>
-                </ul>
+                <li class="nav-item dropdown nav nav-pills">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
+                    <ul class="dropdown-menu ">
+                        <c:forEach items="${categories}" var="category">
+                            <li><a class="dropdown-item" href="/users/${category.name}">${category.name}</a></li>
+                        </c:forEach>
+                    </ul>
+                </li>
             </div>
             <a class="navbar-brand" href="#" style="color: #1254a1">
                 <i class="fas fa-heart"></i>
@@ -95,7 +89,6 @@
             <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
         </div>
     </nav>
-
 
 
 

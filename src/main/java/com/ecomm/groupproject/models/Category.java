@@ -24,6 +24,7 @@ public class Category {
     @NotBlank
     private String name;
 
+
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;

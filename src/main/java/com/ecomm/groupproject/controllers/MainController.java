@@ -76,7 +76,7 @@ public class MainController {
         if (user.getRole().getName().equals("ADMIN")) {
             return "redirect:/admin/home";
         } else
-            return "index";
+            return "redirect:/users/home";
     }
 
     @GetMapping("/admin/home")
