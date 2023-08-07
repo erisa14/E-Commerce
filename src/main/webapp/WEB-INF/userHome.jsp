@@ -106,36 +106,36 @@
 
 
 
-<div class="d-flex">
-    <c:set var="lastCategory" value="" />
+    <div class="d-flex">
+        <c:set var="lastCategory" value="" />
 
-    <c:forEach items="${categories}" var="category">
-        <c:forEach var="product" items="${products}">
-            <c:if test="${category.name eq product.category.name && lastCategory ne category.name}">
-                <div class="view-product">
-                    <a class="ripple nav-link" href="#">
-                        <img src="${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
-                    </a>
-                    <div class="d-flex">
-                        <div class="col">
-                            <a class="justify-center" href="#">${product.productName}</a>
-                            <a class="justify-center" href="/users/${product.category.name}">${product.category.name}</a>
-                            <p class="justify-center">$${product.price}</p>
-                        </div>
-                        <div class="col">
-                            <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                            <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a>
+        <c:forEach items="${categories}" var="category">
+            <c:forEach var="product" items="${products}">
+                <c:if test="${category.name eq product.category.name && lastCategory ne category.name}">
+                    <div class="view-product">
+                        <a class="ripple nav-link" href="#">
+                            <img src="${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
+                        </a>
+                        <div class="d-flex">
+                            <div class="col">
+                                <a class="justify-center" href="#">${product.productName}</a>
+                                <a class="justify-center" href="/users/${product.category.name}">${product.category.name}</a>
+                                <p class="justify-center">$${product.price}</p>
+                            </div>
+                            <div class="col">
+                                <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                                <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </c:if>
+                </c:if>
+            </c:forEach>
         </c:forEach>
-    </c:forEach>
-</div>
+    </div>
 
 </div>
 </body>
