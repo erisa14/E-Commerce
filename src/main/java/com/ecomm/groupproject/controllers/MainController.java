@@ -23,6 +23,7 @@ public class MainController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
     private ShoppingCartService shoppingCartService;
     @Autowired
     private ShippingDetailsService shippingDetailsService;
@@ -76,7 +77,7 @@ public class MainController {
         if (user.getRole().getName().equals("ADMIN")) {
             return "redirect:/admin/home";
         } else
-            return "index";
+            return "redirect:/users/home";
     }
 
     @GetMapping("/admin/home")
@@ -85,7 +86,6 @@ public class MainController {
         if (loggedInUserId == null) {
             return "redirect:/";
         }
-
         User loggedInUser=userService.findUserById(loggedInUserId);
         model.addAttribute("user",loggedInUser);
         model.addAttribute("categories", categoryService.getAll());
@@ -108,7 +108,7 @@ public class MainController {
         if (result.hasErrors()) {
             return "newCategory";
         }
-        return "redirect:/admin/new";
+        return "redirect:/admin/newCat";
     }
 
     @GetMapping("/admin/newP")
@@ -198,8 +198,6 @@ public class MainController {
         model.addAttribute("categories", categoryService.getAll());
         return "viewOrderDetails";
     }
-
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

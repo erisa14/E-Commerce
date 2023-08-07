@@ -20,22 +20,30 @@ public class CategoryService {
         if (categoryRepository.findByName(newCategory.getName()).isPresent()) {
             result.rejectValue("name", "CategoryExists", "Category already exists");
         }
-        return categoryRepository.save(newCategory);
+            return categoryRepository.save(newCategory);
+
     }
 
     public Category findById(Long id){
         return this.categoryRepository.findById(id).orElse(null);
     }
 
+
     public List<Category> getAll(){
         return (List<Category>) categoryRepository.findAll();
     }
+
 
     public void deleteCategory(Long id){
         categoryRepository.deleteById(id);
     }
 
 
-}
+    public Category getByName(String name){
+        return this.categoryRepository.findByName(name).orElse(null);
+    }
 
+}
+  
+}
 
