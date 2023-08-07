@@ -41,8 +41,6 @@ public class User {
     @Email(message = "Please enter a valid email!")
     private String email;
 
-    @NotBlank(message = "Address is required!")
-    private String address;
 
     @NotEmpty(message = "Password is required!")
     @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters")
@@ -52,9 +50,6 @@ public class User {
     @NotEmpty(message = "Confirm Password is required!")
     @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters")
     private String confirm;
-
-    @NotBlank
-    private String phoneNumber;
 
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -84,4 +79,9 @@ public class User {
 
     @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Wishlist wishlist;
+
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="shipping_id")
+    private ShippingDetails shippingDetails;
 }
+
