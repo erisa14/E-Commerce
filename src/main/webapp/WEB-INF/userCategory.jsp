@@ -125,27 +125,27 @@
 
 
     <div class="d-flex">
-            <c:forEach var="product" items="${products}">
-                <div class="view-product">
-                    <a class="ripple nav-link" href="#">
-                        <img src="${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
-                    </a>
-                    <div class="d-flex">
-                        <div class="col">
-                            <a class="justify-center" href="#">${product.productName}</a>
-                            <p class="justify-center">$${product.price}</p>
-                        </div>
-                        <div class="col">
-                            <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                            <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a>
-                        </div>
+        <c:forEach var="product" items="${products}">
+            <div class="view-product">
+                <a class="ripple nav-link" href="#">
+                    <img src="${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
+                </a>
+                <div class="d-flex">
+                    <div class="col">
+                        <a class="justify-center" href="#">${product.productName}</a>
+                        <p class="justify-center">$${product.price}</p>
+                    </div>
+                    <div class="col">
+                        <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                        <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
                     </div>
                 </div>
-            </c:forEach>
+            </div>
+        </c:forEach>
     </div>
 
 </div>

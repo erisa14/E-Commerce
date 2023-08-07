@@ -1,3 +1,6 @@
+
+package com.ecomm.groupproject.controllers;
+
 import org.springframework.ui.Model;
 import com.ecomm.groupproject.models.ChargeRequest;
 import org.springframework.beans.factory.annotation.Value;

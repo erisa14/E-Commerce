@@ -1,7 +1,9 @@
 package com.ecomm.groupproject.controllers;
 
 import com.ecomm.groupproject.models.*;
+
 import com.ecomm.groupproject.services.*;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,6 @@ public class MainController {
     @Autowired
     private OrderService orderService;
     @Autowired
-
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;

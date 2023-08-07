@@ -43,4 +43,3 @@ public class ShippingDetails {
     private User user;
 
 }
-

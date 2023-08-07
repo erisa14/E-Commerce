@@ -84,3 +84,4 @@ public class User {
     @JoinColumn(name="shipping_id")
     private ShippingDetails shippingDetails;
 }
+

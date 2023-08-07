@@ -24,6 +24,17 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+  
+   
+  
+
+  
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+
+    }
+
     public List<Product> getByCategory(Category category){
         return productRepository.findByCategory(category);
     }
@@ -39,12 +50,6 @@ public class ProductService {
         productRepository.save(product);
     }
 
-
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-    public List<Product> getByCategoryName(Category category){
-        return productRepository.findByCategory(category);
-    }
-
 }
+
+
