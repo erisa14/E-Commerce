@@ -41,6 +41,30 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light navbar-background">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" style="border: transparent solid 1px; color: #1254a1; font-weight: bold">Categories</button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
+                    <ul class="dropdown-menu">
+                        <c:forEach items="${categories}" var="category">
+                            <li><a class="dropdown-item" href="/admin/${category.name}">${category.name}</a></li>
+                        </c:forEach>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <a class="navbar-brand" href="#" style="color: #1254a1">
+            <i class="fas fa-heart"></i>
+        </a>
+        <a class="navbar-brand" href="#" style="color: #1254a1">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
+        <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
+    </div>
+</nav>
 <h1>Shipping Details</h1>
 <form:form action="/shippingDetails" method="post" modelAttribute="shippingDetails">
     <form:label path="firstName">First Name:</form:label>

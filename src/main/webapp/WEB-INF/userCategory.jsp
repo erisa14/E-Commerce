@@ -74,8 +74,8 @@
                 <li class="nav-item dropdown nav nav-pills">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
                     <ul class="dropdown-menu ">
-                        <c:forEach items="${categories}" var="category">
-                            <li><a class="dropdown-item" href="/users/${category.name}">${category.name}</a></li>
+                        <c:forEach items="${categories}" var="cat">
+                            <li><a class="dropdown-item" href="/users/${cat.name}">${cat.name}</a></li>
                         </c:forEach>
                     </ul>
                 </li>
