@@ -2,20 +2,20 @@ package com.ecomm.groupproject.controllers;
 
 import com.ecomm.groupproject.models.Category;
 import com.ecomm.groupproject.models.User;
+import com.ecomm.groupproject.models.Category;
+import com.ecomm.groupproject.models.Product;
 import com.ecomm.groupproject.services.CategoryService;
 import com.ecomm.groupproject.services.ProductService;
 import com.ecomm.groupproject.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/users")
 public class UserViewController {
     @Autowired
     private UserService userService;
@@ -39,6 +39,38 @@ public class UserViewController {
         model.addAttribute("products", productService.getAllProducts());
         return "userHome";
     }
+
+
+    @PostMapping("/{productId}/wishlist")
+    public ResponseEntity<String> addToWishlist(@PathVariable Long productId) {
+        productService.addToWishlist(productId);
+        return ResponseEntity.ok("Product added to wishlist.");
+    }
+
+    @DeleteMapping("/{productId}/wishlist")
+    public ResponseEntity<String> removeFromWishlist(@PathVariable Long productId) {
+        productService.removeFromWishlist(productId);
+        return ResponseEntity.ok("Product removed from wishlist.");
+    }
+
+
+
+    /*/SEARCH
+    @GetMapping("/search")
+    public ModelAndView searchProducts(@RequestParam(required = false) String searchTerm) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            modelAndView.addObject("message", "Please enter a search term.");
+        } else {
+            List<Product> products = productService.searchProducts(searchTerm);
+            modelAndView.addObject("products", products);
+        }
+
+        // Assuming "home.jsp" is the view you want to return
+        modelAndView.setViewName("userHome");
+        return modelAndView;
+    }*/
 
 
     // VIEW - BY CATEGORY

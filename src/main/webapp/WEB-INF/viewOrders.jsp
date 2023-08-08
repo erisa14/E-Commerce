@@ -27,5 +27,8 @@
     </c:forEach>
     </tbody>
     </table>
+
+    <a href="/logout">Logout</a>
+
 </body>
 </html>

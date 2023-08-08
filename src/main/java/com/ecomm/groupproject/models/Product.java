@@ -40,6 +40,16 @@ public class Product {
     private  String color;
     private int quantity;
 
+
+
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean wishlist;
+
+
+
+
+
     @Column(updatable=false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<OrderItem> orderItem;
@@ -47,12 +57,11 @@ public class Product {
     @Column(updatable=false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<CartItem> cartItem;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="wishlist_id")
-    private Wishlist wishlist;
+
 
 }

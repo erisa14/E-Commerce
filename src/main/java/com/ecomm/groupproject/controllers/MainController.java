@@ -21,6 +21,8 @@ public class MainController {
     @Autowired
     private OrderService orderService;
 
+
+    //GENERAL
     @GetMapping("/")
     public String index(Model model, @ModelAttribute("newUser") User newUser,
                         @ModelAttribute("newLogin")User newLogin, HttpSession session){
@@ -32,13 +34,12 @@ public class MainController {
                 return "redirect:/admin/home";
             }
             else
-                return "redirect:/users/home";
+                return "redirect:/home";
         }
         model.addAttribute("newUser", new User());
         model.addAttribute("newLogin", new LoginUser());
         return "index";
     }
-
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("newUser")User newUser, BindingResult result,
                            Model model, HttpSession session){
@@ -53,9 +54,8 @@ public class MainController {
             return "redirect:/admin/home";
         }
         else
-            return "redirect:/users/home";
+            return "redirect:/home";
     }
-
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("newLogin")LoginUser newLogin, BindingResult result,
                         Model model, HttpSession session){
@@ -67,13 +67,21 @@ public class MainController {
         }
         session.setAttribute("loggedInUserId", user.getId());
 
-
         if (user.getRole().getName().equals("ADMIN")) {
             return "redirect:/admin/home";
         }
         else
-            return "redirect:/index";
+            return "redirect:/home";
     }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
+
+    //ADMIN
     @GetMapping("/admin/home")
     public String dashboard(HttpSession session, Model model){
         Long loggedInUserId=(Long) session.getAttribute("loggedInUserId");
@@ -84,10 +92,5 @@ public class MainController {
         model.addAttribute("user",loggedInUser);
         model.addAttribute("orders", orderService.getAll());
         return "viewOrders";
-    }
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-        session.invalidate();
-        return "redirect:/";
     }
 }
