@@ -214,9 +214,19 @@ public class MainController {
         if (loggedInUserId != null) {
             ShoppingCart cart = shoppingCartService.getShoppingCartById(loggedInUserId);
             model.addAttribute("cartItems", cart.getCartItems());
+            // Calculate total price
+            double totalPrice = cart.getCartItems().stream()
+                    .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
+                    .sum();
+            model.addAttribute("totalPrice", totalPrice);
+            // Redirect to shipping details if the cart is not empty
+            if (!cart.getCartItems().isEmpty()) {
+                return "redirect:/shippingDetails";
+            }
         } else {
             return "redirect:/";
         }
+        // If cart is empty, show the shopping cart page
         return "shoppingCart";
     }
 

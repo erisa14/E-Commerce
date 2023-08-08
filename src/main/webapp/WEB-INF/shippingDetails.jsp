@@ -50,18 +50,19 @@
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
         </div>
-
-        <form action="/checkout" method="get">
-            <input type="submit" class="btn btn-primary" value="Next">
-        </form>
-
     </form>
 
-    <a href="/">Cancel</a>
+    <p>Total Price: ${totalPrice}</p>
+    <form action="/checkout" method="post">
+        <input type="hidden" name="totalPrice" value="${totalPrice}">
+        <input type="hidden" name="stripeToken" value="TOKEN_FROM_STRIPE"> <!-- Replace "TOKEN_FROM_STRIPE" with the actual Stripe token obtained from the frontend -->
 
+        <input type="submit" class="btn btn-primary" value="Next">
+    </form>
+
+    <a href="/viewCart" class="btn btn-secondary">Cancel</a>
 </div>
 
-<!-- Add Bootstrap JS and jQuery (required for Bootstrap) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

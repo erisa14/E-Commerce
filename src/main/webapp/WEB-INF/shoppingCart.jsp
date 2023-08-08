@@ -7,28 +7,46 @@
 <html>
 <head>
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Shopping Cart</h1>
-<table border="1">
-    <tr>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Image</th>
-    </tr>
-    <c:forEach items="${cartItems}" var="cartItem">
+<div class="container">
+    <h1>Shopping Cart</h1>
+    <table class="table table-bordered">
+        <thead>
         <tr>
-            <td>${cartItem.product.name}</td>
-            <td>${cartItem.product.price}</td>
-            <td>
-                <img src="${cartItem.product.image}" alt="${cartItem.product.name}" width="100" height="100">
-            </td>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Image</th>
         </tr>
-    </c:forEach>
-</table>
-<form action="/shippingDetails" method="get">
-    <input type="submit" class="btn btn-primary" value="Next">
-</form>
-<a href="/">Cancel</a>
+        </thead>
+        <tbody>
+        <c:forEach items="${cartItems}" var="cartItem">
+            <tr>
+                <td>${cartItem.product.name}</td>
+                <td>${cartItem.product.price}</td>
+                <td>
+                    <img src="${cartItem.product.image}" alt="${cartItem.product.name}" width="100" height="100">
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <p>Total Price: ${totalPrice}</p>
+
+    <form action="/shippingDetails" method="post">
+        <input type="submit" class="btn btn-primary" value="Next">
+    </form>
+
+    <a href="/" class="btn btn-secondary">Cancel</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
+
