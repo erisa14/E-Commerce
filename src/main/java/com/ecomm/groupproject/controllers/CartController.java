@@ -38,8 +38,6 @@ public class CartController {
         ShoppingCart shoppingCart = user.getShoppingCart();   // marrim shoppingCart-in
         newCartItem.setShoppingCart(shoppingCart);     //marrim te dhenat nga shoppingCart
 
-
-
         cartItemService.addNewCartItem(newCartItem);    // shtojme nje cart item
         return "redirect:/home";
     }
@@ -60,18 +58,6 @@ public class CartController {
 
 
 
-
-    // VIEW - CART / WISHLIST
-    @GetMapping("/viewCart")
-    public String viewCart(HttpSession session, Model model){
-        Long userId = (Long) session.getAttribute("loggedInUserId");
-        if (userId == null){
-            return "redirect:/";
-        }
-        User user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-        return "userViewShoppingCart";
-    }
     @GetMapping("/viewWishlist")
     public String viewWishlist(HttpSession session, Model model){
         Long userId = (Long) session.getAttribute("loggedInUserId");

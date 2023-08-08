@@ -24,6 +24,8 @@ public class Category {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String categoryImage;
 
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")

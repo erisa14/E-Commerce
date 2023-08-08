@@ -44,6 +44,11 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public List<Product> getByCategoryName(Category category){
+        return productRepository.findByCategory(category);
+    }
+
+
 
 }
 

@@ -236,6 +236,7 @@ public class MainController {
         return "shoppingCart";
     }
 
+
     @PostMapping("/shippingDetails")
     public String processShippingDetailsForm(@Valid @ModelAttribute("shippingDetails") ShippingDetails shippingDetails,
                                              BindingResult result, HttpSession session) {

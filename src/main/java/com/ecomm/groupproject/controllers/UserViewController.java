@@ -1,6 +1,7 @@
 package com.ecomm.groupproject.controllers;
 
 import com.ecomm.groupproject.models.Category;
+import com.ecomm.groupproject.models.Product;
 import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.services.CategoryService;
 import com.ecomm.groupproject.services.ProductService;
@@ -57,20 +58,17 @@ public class UserViewController {
         return "userCategory";
     }
 
-
-    /* VIEW - PRODUCT
-    @GetMapping("/{category}/{id}")
-    public String viewThisProduct(@PathVariable("id") Long id, @PathVariable("category") String category, Model model, HttpSession session) {
+    @GetMapping("/view/{productId}")
+    public String ViewProduct(@PathVariable("productId") Long productId, HttpSession session, Model model){
         Long userId = (Long) session.getAttribute("loggedInUserId");
         if (userId == null){
             return "redirect:/";
         }
-        User user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-        model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("product", productService.getProductById(id));
-        return "viewProduct";
-    }
 
-     */
+        Product product = productService.find(productId);
+        model.addAttribute("product", product);
+
+        return"viewProductDetails";
+
+    }
 }

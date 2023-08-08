@@ -6,6 +6,8 @@
 <html>
 <head>
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <!-- For any Bootstrap that uses JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -79,10 +81,10 @@
         <tbody>
         <c:forEach items="${cartItems}" var="cartItem">
             <tr>
-                <td>${cartItem.product.name}</td>
+                <td>${cartItem.product.productName}</td>
                 <td>${cartItem.product.price}</td>
                 <td>
-                    <img src="${cartItem.product.image}" alt="${cartItem.product.name}" width="100" height="100">
+                    <img src="${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
                 </td>
             </tr>
         </c:forEach>
