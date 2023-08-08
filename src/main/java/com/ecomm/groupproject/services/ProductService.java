@@ -2,6 +2,7 @@ package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.Category;
 import com.ecomm.groupproject.models.Product;
+import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.repositories.ProductRepository;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ public class ProductService {
     public List<Product> getByCategoryName(Category category){
         return productRepository.findByCategory(category);
     }
-
+    public Product getProductById(Long id){
+        return this.productRepository.findById(id).orElse(null);
+    }
 
 
     //for wishlist

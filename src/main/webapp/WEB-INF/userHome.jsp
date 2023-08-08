@@ -114,10 +114,10 @@
                 </span>
             </form>
 
-            <a class="navbar-brand" href="#" style="color: #1254a1">
+            <a class="navbar-brand" href="/viewWishlist" style="color: #1254a1">
                 <i class="fas fa-heart"></i>
             </a>
-            <a class="navbar-brand" href="#" style="color: #1254a1">
+            <a class="navbar-brand" href="/viewCart" style="color: #1254a1">
                 <i class="fas fa-shopping-cart"></i>
             </a>
             <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
@@ -179,6 +179,10 @@
                             <div class="col">
                                     <i class="fas fa-heart navbar-brand justify-center" style="color: #1254a1"></i>
                                 <form action="/new_cart_item" method="post">
+                                    <input type="hidden" name="productId" value="${product.id}">
+                                    <input type="hidden" name="productName" value="${product.productName}">
+                                    <input type="hidden" name="price" value="${product.price}">
+                                    <input type="hidden" name="image" value="${product.image}">
                                     <button type="submit" class="btn btn-light">
                                         <i class="fas fa-shopping-cart" style="color: #1254a1;"></i>
                                     </button>

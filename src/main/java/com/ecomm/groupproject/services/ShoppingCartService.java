@@ -2,6 +2,7 @@ package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.CartItem;
 import com.ecomm.groupproject.models.ShoppingCart;
+import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.repositories.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,11 @@ import org.springframework.stereotype.Service;
 public class ShoppingCartService {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private UserService userService;
 
 
-
-    //GET THIS SHOPPING CART
+    //GET THIS SHOPPING CART  by ___
     public ShoppingCart getShoppingCartById(Long id) {
         return shoppingCartRepository.findById(id).orElse(null);
     }
@@ -24,9 +26,12 @@ public class ShoppingCartService {
         }
         return null; // Return null or throw an exception if shopping cart doesn't exist
     }
+    public ShoppingCart getShoppingCartByUser(User user) {
+        return shoppingCartRepository.findByUserId(user.getId());
+    }
 
 
-    //CREATE + EDIT
+    //CREATE
     public ShoppingCart createNewShoppingCart(ShoppingCart shoppingCart) {
         return shoppingCartRepository.save(shoppingCart);
     }

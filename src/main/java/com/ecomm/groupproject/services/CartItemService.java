@@ -24,7 +24,13 @@ public class CartItemService {
 
 
     //CREATE + EDIT
-    public CartItem createNewCartItem(CartItem cartItem) {
+    public CartItem addNewCartItem(CartItem cartItem) {
+        if(cartItem.getQuantity() == 0) {
+            cartItem.setQuantity(1);
+        }
+        else {
+            cartItem.setQuantity(cartItem.getQuantity()+1);
+        }
         return cartItemRepository.save(cartItem);
     }
     public CartItem updateThisCartItem(CartItem cartItem) {

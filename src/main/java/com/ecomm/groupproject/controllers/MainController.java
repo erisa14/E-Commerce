@@ -1,8 +1,10 @@
 package com.ecomm.groupproject.controllers;
 
 import com.ecomm.groupproject.models.LoginUser;
+import com.ecomm.groupproject.models.ShoppingCart;
 import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.services.OrderService;
+import com.ecomm.groupproject.services.ShoppingCartService;
 import com.ecomm.groupproject.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -20,6 +22,8 @@ public class MainController {
     private UserService userService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ShoppingCartService shoppingCartService;
 
 
     //GENERAL
@@ -53,8 +57,9 @@ public class MainController {
         if (newUser.getRole().getName().equals("ADMIN")) {
             return "redirect:/admin/home";
         }
-        else
+        else {
             return "redirect:/home";
+        }
     }
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("newLogin")LoginUser newLogin, BindingResult result,

@@ -5,6 +5,7 @@ import com.ecomm.groupproject.models.Role;
 import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.models.ShoppingCart;
 import com.ecomm.groupproject.repositories.RoleRepository;
+import com.ecomm.groupproject.repositories.ShoppingCartRepository;
 import com.ecomm.groupproject.repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
     @Autowired
     private RoleRepository roleRepository;
 
@@ -64,8 +67,10 @@ public class UserService {
             // Automatically create a shopping cart for the user (role - customer)
             if (!isFirstUser) {
                 ShoppingCart shoppingCart = new ShoppingCart();
+                shoppingCartRepository.save(shoppingCart);
                 shoppingCart.setUser(savedUser);
                 savedUser.setShoppingCart(shoppingCart);
+                userRepository.save(savedUser); // Save the updated user
             }
             return savedUser;
         }

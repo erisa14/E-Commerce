@@ -56,7 +56,7 @@ public class Product {
 
     @Column(updatable=false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<CartItem> cartItem;
+    private List<CartItem> cartItems;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

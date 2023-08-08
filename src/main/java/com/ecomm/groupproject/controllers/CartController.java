@@ -1,10 +1,8 @@
 package com.ecomm.groupproject.controllers;
 
-import com.ecomm.groupproject.models.CartItem;
-import com.ecomm.groupproject.models.Category;
-import com.ecomm.groupproject.models.ShoppingCart;
-import com.ecomm.groupproject.models.User;
+import com.ecomm.groupproject.models.*;
 import com.ecomm.groupproject.services.CartItemService;
+import com.ecomm.groupproject.services.ProductService;
 import com.ecomm.groupproject.services.ShoppingCartService;
 import com.ecomm.groupproject.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +22,8 @@ public class CartController {
     private ShoppingCartService shoppingCartService;
     @Autowired
     private CartItemService cartItemService;
+    @Autowired
+    private ProductService productService;
 
 
 
@@ -34,9 +34,13 @@ public class CartController {
         if (userId == null){
             return "redirect:/";
         }
-        User user = userService.findUserById(userId);
-        newCartItem.setShoppingCart(user.getShoppingCart());
-        cartItemService.createNewCartItem(newCartItem);
+        User user = userService.findUserById(userId);   // marrim user-in
+        ShoppingCart shoppingCart = user.getShoppingCart();   // marrim shoppingCart-in
+        newCartItem.setShoppingCart(shoppingCart);     //marrim te dhenat nga shoppingCart
+
+
+
+        cartItemService.addNewCartItem(newCartItem);    // shtojme nje cart item
         return "redirect:/home";
     }
 
@@ -57,7 +61,29 @@ public class CartController {
 
 
 
-    // VIEW - CART ITEMS
+    // VIEW - CART / WISHLIST
+    @GetMapping("/viewCart")
+    public String viewCart(HttpSession session, Model model){
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null){
+            return "redirect:/";
+        }
+        User user = userService.findUserById(userId);
+        model.addAttribute("user", user);
+        return "userViewShoppingCart";
+    }
+    @GetMapping("/viewWishlist")
+    public String viewWishlist(HttpSession session, Model model){
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null){
+            return "redirect:/";
+        }
+        User user = userService.findUserById(userId);
+        model.addAttribute("user", user);
+        return "userViewWishlist";
+    }
+
+    /*
     @GetMapping("/shoppingCart")
     public String viewCartItems(HttpSession session, Model model){
         Long userId = (Long) session.getAttribute("loggedInUserId");
@@ -71,5 +97,6 @@ public class CartController {
         model.addAttribute("cartItems", user.getShoppingCart().getCartItems());     //cartItemService.getAllCartItems()
         return "userViewShoppingCart";
     }
+     */
 
 }
