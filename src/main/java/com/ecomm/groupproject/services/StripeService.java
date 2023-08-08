@@ -2,10 +2,7 @@ package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.ChargeRequest;
 import com.stripe.Stripe;
-import com.stripe.exception.APIConnectionException;
-import com.stripe.exception.APIException;
-import com.stripe.exception.CardException;
-import com.stripe.exception.InvalidRequestException;
+import com.stripe.exception.*;
 import com.stripe.model.Charge;
 import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;

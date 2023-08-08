@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 public class MainController {
     @Autowired
@@ -23,6 +25,7 @@ public class MainController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
     private ShoppingCartService shoppingCartService;
     @Autowired
     private ShippingDetailsService shippingDetailsService;
@@ -213,20 +216,26 @@ public class MainController {
 
         if (loggedInUserId != null) {
             ShoppingCart cart = shoppingCartService.getShoppingCartById(loggedInUserId);
-            model.addAttribute("cartItems", cart.getCartItems());
-            // Calculate total price
-            double totalPrice = cart.getCartItems().stream()
-                    .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
-                    .sum();
-            model.addAttribute("totalPrice", totalPrice);
-            // Redirect to shipping details if the cart is not empty
-            if (!cart.getCartItems().isEmpty()) {
-                return "redirect:/shippingDetails";
+
+            if (cart == null) {
+                // Handle the case where the cart is null
+                model.addAttribute("cartItems", new ArrayList<CartItem>()); // Empty list
+                model.addAttribute("totalPrice", 0.0); // Total price is 0
+            } else {
+                model.addAttribute("cartItems", cart.getCartItems());
+                double totalPrice = cart.getCartItems().stream()
+                        .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
+                        .sum();
+                model.addAttribute("totalPrice", totalPrice);
+
+                if (!cart.getCartItems().isEmpty()) {
+                    return "redirect:/shippingDetails";
+                }
             }
         } else {
             return "redirect:/";
         }
-        // If cart is empty, show the shopping cart page
+
         return "shoppingCart";
     }
 
