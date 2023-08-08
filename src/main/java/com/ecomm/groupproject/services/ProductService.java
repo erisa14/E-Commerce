@@ -24,12 +24,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-  
-   
-  
-
-  
-
     public List<Product> getAllProducts() {
         return productRepository.findAll();
 
@@ -49,6 +43,7 @@ public class ProductService {
     public void update(Product product) {
         productRepository.save(product);
     }
+
 
 }
 

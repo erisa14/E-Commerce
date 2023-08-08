@@ -59,42 +59,69 @@
         <a class="navbar-brand" href="#" style="color: #1254a1">
             <i class="fas fa-heart"></i>
         </a>
-        <a class="navbar-brand" href="#" style="color: #1254a1">
+        <a class="navbar-brand" href="/viewCart" style="color: #1254a1">
             <i class="fas fa-shopping-cart"></i>
         </a>
         <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
     </div>
 </nav>
-<h1>Shipping Details</h1>
-<form:form action="/shippingDetails" method="post" modelAttribute="shippingDetails">
-    <form:label path="firstName">First Name:</form:label>
-    <form:input path="firstName" /><br/>
+<div class="container">
+    <h1>Shipping Details</h1>
+    <form action="/shippingDetails" method="post" modelAttribute="shippingDetails">
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" name="firstName">
+        </div>
 
-    <form:label path="lastName">Last Name:</form:label>
-    <form:input path="lastName" /><br/>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" name="lastName">
+        </div>
 
-    <form:label path="address1">Address Line 1:</form:label>
-    <form:input path="address1" /><br/>
+        <div class="form-group">
+            <label for="address1">Address Line 1:</label>
+            <input type="text" class="form-control" id="address1" name="address1">
+        </div>
 
-    <form:label path="address2">Address Line 2:</form:label>
-    <form:input path="address2" /><br/>
+        <div class="form-group">
+            <label for="address2">Address Line 2:</label>
+            <input type="text" class="form-control" id="address2" name="address2">
+        </div>
 
-    <form:label path="country">Country:</form:label>
-    <form:input path="country" /><br/>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" id="country" name="country">
+        </div>
 
-    <form:label path="city">City:</form:label>
-    <form:input path="city" /><br/>
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" class="form-control" id="city" name="city">
+        </div>
 
-    <form:label path="zipCode">Zip Code:</form:label>
-    <form:input path="zipCode" /><br/>
+        <div class="form-group">
+            <label for="zipCode">Zip Code:</label>
+            <input type="text" class="form-control" id="zipCode" name="zipCode">
+        </div>
 
-    <form:label path="phoneNumber">Phone Number:</form:label>
-    <form:input path="phoneNumber" /><br/>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
+        </div>
+    </form>
 
-    <input type="submit" value="Next" />
-</form:form>
+    <p>Total Price: ${totalPrice}</p>
+    <form action="/checkout" method="post">
+        <input type="hidden" name="totalPrice" value="${totalPrice}">
+        <input type="hidden" name="stripeToken" value="TOKEN_FROM_STRIPE"> <!-- Replace "TOKEN_FROM_STRIPE" with the actual Stripe token obtained from the frontend -->
 
-<a href="/viewCart">Cancel</a>
+        <input type="submit" class="btn btn-primary" value="Next">
+    </form>
+
+    <a href="/viewCart" class="btn btn-secondary">Cancel</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -25,9 +25,10 @@ public class ShoppingCart {
     @NotNull
     private double totalPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @Column(updatable=false)
     @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)

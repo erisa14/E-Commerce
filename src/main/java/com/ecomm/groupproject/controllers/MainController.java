@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 public class MainController {
     @Autowired
@@ -211,10 +213,26 @@ public class MainController {
 
         if (loggedInUserId != null) {
             ShoppingCart cart = shoppingCartService.getShoppingCartById(loggedInUserId);
-            model.addAttribute("cartItems", cart.getCartItems());
+
+            if (cart == null) {
+                // Handle the case where the cart is null
+                model.addAttribute("cartItems", new ArrayList<CartItem>()); // Empty list
+                model.addAttribute("totalPrice", 0.0); // Total price is 0
+            } else {
+                model.addAttribute("cartItems", cart.getCartItems());
+                double totalPrice = cart.getCartItems().stream()
+                        .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
+                        .sum();
+                model.addAttribute("totalPrice", totalPrice);
+
+                if (!cart.getCartItems().isEmpty()) {
+                    return "redirect:/shippingDetails";
+                }
+            }
         } else {
             return "redirect:/";
         }
+
         return "shoppingCart";
     }
 
@@ -232,6 +250,7 @@ public class MainController {
 
         return "redirect:/charge";
     }
+
 
 }
 

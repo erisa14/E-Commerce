@@ -2,8 +2,10 @@ package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.LoginUser;
 import com.ecomm.groupproject.models.Role;
+import com.ecomm.groupproject.models.ShoppingCart;
 import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.repositories.RoleRepository;
+import com.ecomm.groupproject.repositories.ShoppingCartRepository;
 import com.ecomm.groupproject.repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
 
     public User register(User newUser, BindingResult result){
 
@@ -54,7 +58,17 @@ public class UserService {
             } else {
                 newUser.setRole(defaultRole);
             }
-            return userRepository.save(newUser);
+            // instead of    --   return userRepository.save(newUser);
+            User savedUser = userRepository.save(newUser);
+            // Automatically create a shopping cart for the user (role - customer)
+            if (!isFirstUser) {
+                ShoppingCart shoppingCart = new ShoppingCart();
+                shoppingCartRepository.save(shoppingCart);
+                shoppingCart.setUser(savedUser);
+                savedUser.setShoppingCart(shoppingCart);
+                userRepository.save(savedUser); // Save the updated user
+            }
+            return savedUser;
         }
     }
 

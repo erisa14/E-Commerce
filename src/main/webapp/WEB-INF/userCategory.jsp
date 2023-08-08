@@ -139,7 +139,7 @@
                         <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
                             <i class="fas fa-heart"></i>
                         </a>
-                        <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
+                        <a class="navbar-brand justify-center" href="/viewCart" style="color: #1254a1">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                     </div>

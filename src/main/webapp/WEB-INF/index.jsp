@@ -32,14 +32,6 @@
                     <form:input path="email" type="text" placeholder="Email"/>
             </div>
             <div>
-                    <form:errors path="address" class="errors text-danger"/>
-                    <form:input path="address" type="text" placeholder="Address"/>
-            </div>
-            <div>
-                    <form:errors path="phoneNumber" class="errors text-danger"/>
-                    <form:input path="phoneNumber" type="phone" placeholder="Phone Number"/>
-            </div>
-            <div>
                     <form:errors path="password" class="errors text-danger"/>
                     <form:input path="password" type="password" placeholder="Password"/>
             </div>

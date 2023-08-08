@@ -60,33 +60,45 @@
         <a class="navbar-brand" href="#" style="color: #1254a1">
             <i class="fas fa-heart"></i>
         </a>
-        <a class="navbar-brand" href="#" style="color: #1254a1">
+        <a class="navbar-brand" href="/viewCart" style="color: #1254a1">
             <i class="fas fa-shopping-cart"></i>
         </a>
         <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
     </div>
 </nav>
-<h1>Shopping Cart</h1>
-<table border="1">
-    <tr>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Image</th>
-    </tr>
-    <c:forEach items="${cartItems}" var="cartItem">
+<div class="container">
+    <h1>Shopping Cart</h1>
+    <table class="table table-bordered">
+        <thead>
         <tr>
-            <td>${cartItem.product.productName}</td>
-            <td>${cartItem.product.price}</td>
-            <td>
-                <img src="${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
-            </td>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Image</th>
         </tr>
-    </c:forEach>
-</table>
-<form action="/shippingDetails" method="get">
-    <input type="submit" value="Next">
-</form>
-<a href="/">Cancel</a>
+        </thead>
+        <tbody>
+        <c:forEach items="${cartItems}" var="cartItem">
+            <tr>
+                <td>${cartItem.product.name}</td>
+                <td>${cartItem.product.price}</td>
+                <td>
+                    <img src="${cartItem.product.image}" alt="${cartItem.product.name}" width="100" height="100">
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <p>Total Price: ${totalPrice}</p>
+
+    <form action="/shippingDetails" method="post">
+        <input type="submit" class="btn btn-primary" value="Next">
+    </form>
+
+    <a href="/" class="btn btn-secondary">Cancel</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 
