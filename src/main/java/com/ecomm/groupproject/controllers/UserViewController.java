@@ -64,11 +64,9 @@ public class UserViewController {
         if (userId == null){
             return "redirect:/";
         }
-
         Product product = productService.find(productId);
         model.addAttribute("product", product);
-
-        return"viewProductDetails";
+        return "viewProductDetails";
 
     }
 }

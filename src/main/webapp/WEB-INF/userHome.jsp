@@ -90,46 +90,46 @@
         </div>
     </nav>
 
-
-
-
-
     <!-- HEADER -->
     <div class="header justify-center">Hello ${user.firstname}</div>
 
-
-
-    <div class="d-flex">
-        <c:set var="lastCategory" value="" />
-
+    <div class="d-flex flex-wrap">
+        <c:set var="productsInRow" value="0" />
         <c:forEach items="${categories}" var="category">
             <c:forEach var="product" items="${products}">
-                <c:if test="${category.name eq product.category.name && lastCategory ne category.name}">
+                <c:if test="${category.name eq product.category.name}">
+                    <c:if test="${productsInRow % 4 == 0}">
+                        <div class="w-100"></div> <!-- Start a new row -->
+                    </c:if>
                     <div class="view-product">
-                        <a class="ripple nav-link" href="#">
-                            <img src="${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
-                        </a>
-                        <div class="d-flex">
-                            <div class="col">
-                                <a class="justify-center" href="#">${product.productName}</a>
-                                <a class="justify-center" href="/users/${product.category.name}">${product.category.name}</a>
-                                <p class="justify-center">$${product.price}</p>
-                            </div>
-                            <div class="col">
-                                <i class="fas fa-heart navbar-brand justify-center" style="color: #1254a1"></i>
-                                <form action="/new_cart_item" method="post">
-                                    <input type="hidden" name="productId" value="${product.id}">
-                                    <button type="submit" class="btn btn-light">
-                                        <i class="fas fa-shopping-cart" style="color: #1254a1;"></i>
-                                    </button>
-                                </form>
+                        <div class="view-product ">
+                            <a class="ripple nav-link" href="#">
+                                <img src="/assets/${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
+                            </a>
+                            <div class="d-flex">
+                                <div class="col">
+                                    <a class="justify-center" href="/users/view/${product.id}">${product.productName}</a>
+                                    <a class="justify-center" href="/users/${product.category.name}">${product.category.name}</a>
+                                    <p class="justify-center">$${product.price}</p>
+                                </div>
+                                <div class="col">
+                                    <i class="fas fa-heart navbar-brand justify-center" style="color: #1254a1"></i>
+                                    <form action="/new_cart_item" method="post">
+                                        <input type="hidden" name="productId" value="${product.id}">
+                                        <button type="submit" class="btn btn-light">
+                                            <i class="fas fa-shopping-cart" style="color: #1254a1;"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <c:set var="productsInRow" value="${productsInRow + 1}" />
                 </c:if>
             </c:forEach>
         </c:forEach>
     </div>
+
 
 </div>
 </body>
