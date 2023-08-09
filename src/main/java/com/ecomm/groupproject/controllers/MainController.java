@@ -111,7 +111,7 @@ public class MainController {
         if (result.hasErrors()) {
             return "newCategory";
         }
-        return "redirect:/admin/new";
+        return "redirect:/admin/newCat";
     }
 
     @GetMapping("/admin/newP")

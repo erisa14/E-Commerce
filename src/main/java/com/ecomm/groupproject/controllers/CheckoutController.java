@@ -22,12 +22,8 @@ public class CheckoutController {
     @Value("${STRIPE_PUBLIC_KEY}")
     private String stripePublicKey;
 
-    private final StripeService stripeService;
+    // Other properties and constructor
 
-    @Autowired
-    public CheckoutController(StripeService stripeService) {
-        this.stripeService = stripeService;
-    }
 
     @RequestMapping("/checkout")
     public String checkout(Model model) {
@@ -36,27 +32,7 @@ public class CheckoutController {
         model.addAttribute("currency", ChargeRequest.Currency.EUR);
         return "checkout";
     }
-
-    @SneakyThrows
-    @PostMapping("/checkout")
-    public String handleCheckout(@RequestParam("totalPrice") double totalPrice, @RequestParam("stripeToken") String stripeToken, Model model) throws StripeException {
-        // Process the payment logic here using the totalPrice and stripeToken
-
-        ChargeRequest chargeRequest = new ChargeRequest();
-        chargeRequest.setAmount((int) (totalPrice * 100)); // Convert totalPrice to cents
-        chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
-        chargeRequest.setDescription("Payment for Order");
-        chargeRequest.setStripeToken(stripeToken); // Set the stripeToken obtained from the frontend
-
-        // Call the StripeService to process the payment
-        Charge charge = stripeService.charge(chargeRequest);
-
-        // Handle the successful payment here
-        model.addAttribute("charge", charge);
-
-        // Return the success page after successful payment
-        return "paymentSuccess"; // You can create a "paymentSuccess.jsp" to show the payment success message
-    }
 }
+
 
 

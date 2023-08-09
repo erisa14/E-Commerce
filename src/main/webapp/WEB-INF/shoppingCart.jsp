@@ -16,6 +16,7 @@
             <th>Product Name</th>
             <th>Price</th>
             <th>Image</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +26,12 @@
                 <td>${cartItem.product.price}</td>
                 <td>
                     <img src="${cartItem.product.image}" alt="${cartItem.product.name}" width="100" height="100">
+                </td>
+                <td>
+                    <form action="/removeCartItem" method="post">
+                        <input type="hidden" name="productId" value="${cartItem.product.id}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
