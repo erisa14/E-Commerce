@@ -23,20 +23,29 @@ public class ChargeController {
     StripeService paymentsService;
 
     @PostMapping("/charge")
-    public String charge(ChargeRequest chargeRequest, Model model) throws StripeException {
+    public String charge(
+            @RequestParam(name = "amount") double amount,
+            @RequestParam(name = "stripeToken") String stripeToken,
+            Model model) {
+        ChargeRequest chargeRequest = new ChargeRequest();
         chargeRequest.setDescription("Example charge");
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
-        Charge charge = null;
+        chargeRequest.setAmount((int) (amount * 100)); // Convert amount to cents
+        chargeRequest.setStripeToken(stripeToken);
+
         try {
-            charge = paymentsService.charge(chargeRequest);
+            Charge charge = paymentsService.charge(chargeRequest);
+            model.addAttribute("id", charge.getId());
+            model.addAttribute("status", charge.getStatus());
+            model.addAttribute("chargeId", charge.getId());
+            model.addAttribute("balance_transaction", charge.getBalanceTransaction());
+            return "result";
+        } catch (StripeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "result";
         } catch (AuthenticationException e) {
             throw new RuntimeException(e);
         }
-        model.addAttribute("id", charge.getId());
-        model.addAttribute("status", charge.getStatus());
-        model.addAttribute("chargeId", charge.getId());
-        model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-        return "result";
     }
 
     @ExceptionHandler(StripeException.class)

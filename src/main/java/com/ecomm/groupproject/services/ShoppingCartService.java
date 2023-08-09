@@ -22,8 +22,9 @@ public class ShoppingCartService {
         }
         return null; // Return null or throw an exception if shopping cart doesn't exist
     }
-    public ShoppingCart getShoppingCartByUser(User user) {
-        return shoppingCartRepository.findByUserId(user.getId());
+    public ShoppingCart getShoppingCartByUserId(Long id) {
+
+        return shoppingCartRepository.findByUserId(id);
     }
 
 

@@ -1,6 +1,7 @@
 package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.CartItem;
+import com.ecomm.groupproject.models.Product;
 import com.ecomm.groupproject.repositories.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,6 @@ public class CartItemService {
         return cartItemRepository.findById(id).orElse(null);
     }
 
-
-
     //CREATE + EDIT
     public CartItem addNewCartItem(CartItem cartItem) {
         if(cartItem.getQuantity() == 0) {
@@ -37,6 +36,10 @@ public class CartItemService {
         return cartItemRepository.save(cartItem);
     }
 
+    public List<CartItem> getAllProducts() {
+        return cartItemRepository.findAll();
+
+    }
 
 
     //DELETE
@@ -45,4 +48,7 @@ public class CartItemService {
     }
 
 
+    public List<CartItem> getCartItemsByUserId(Long loggedInUserId) {
+        return cartItemRepository.findByShoppingCartId(loggedInUserId);
+    }
 }

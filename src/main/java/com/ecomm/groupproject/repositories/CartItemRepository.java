@@ -12,7 +12,7 @@ public interface CartItemRepository extends CrudRepository<CartItem, Long> {
 
     Optional<CartItem> findById(Long id);
 
-    CartItem findByIdIs(Long id);
+    List<CartItem> findByShoppingCartId(Long id);
 
 
 

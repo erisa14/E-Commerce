@@ -53,7 +53,6 @@
             border-radius: 10px;
             margin: 0px 20px 20px 0px;
             padding: 15px 10px 0px 10px;
-            height: 100%;
         }
         .view-img {
             border: 1.5px solid #1254a1;
@@ -108,21 +107,22 @@
                 <c:if test="${category.name eq product.category.name && lastCategory ne category.name}">
                     <div class="view-product">
                         <a class="ripple nav-link" href="#">
-                            <img src="/assets/${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
+                            <img src="${product.image}" class="view-img img-fluid rounded" alt="${product.productName}"/>
                         </a>
                         <div class="d-flex">
                             <div class="col">
-                                <a class="justify-center" href="/users/view/${product.id}">${product.productName}</a>
+                                <a class="justify-center" href="#">${product.productName}</a>
                                 <a class="justify-center" href="/users/${product.category.name}">${product.category.name}</a>
                                 <p class="justify-center">$${product.price}</p>
                             </div>
                             <div class="col">
-                                <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                                <a class="navbar-brand justify-center" href="#" style="color: #1254a1">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>
+                                <i class="fas fa-heart navbar-brand justify-center" style="color: #1254a1"></i>
+                                <form action="/new_cart_item" method="post">
+                                    <input type="hidden" name="productId" value="${product.id}">
+                                    <button type="submit" class="btn btn-light">
+                                        <i class="fas fa-shopping-cart" style="color: #1254a1;"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -29,6 +30,9 @@ public class MainController {
     private ShoppingCartService shoppingCartService;
     @Autowired
     private ShippingDetailsService shippingDetailsService;
+
+    @Autowired
+    private CartItemService cartItemService;
 
 
     @GetMapping("/")
@@ -207,33 +211,71 @@ public class MainController {
         return "redirect:/";
     }
 
+//    @GetMapping("/viewCart")
+//    public String viewCart(Model model, HttpSession session) {
+//        Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
+//
+//        if (loggedInUserId != null) {
+//            ShoppingCart cart = shoppingCartService.getShoppingCartById(loggedInUserId);
+//
+//            if (cart == null) {
+//                // Handle the case where the cart is null
+//                model.addAttribute("cartItems", new ArrayList<CartItem>()); // Empty list
+//                model.addAttribute("totalPrice", 0.0); // Total price is 0
+//            } else {
+//                model.addAttribute("cartItems", cart.getCartItems());
+//                double totalPrice = cart.getCartItems().stream()
+//                        .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
+//                        .sum();
+//                model.addAttribute("totalPrice", totalPrice);
+//
+//                if (!cart.getCartItems().isEmpty()) {
+//                    return "redirect:/shippingDetails";
+//                }
+//            }
+//        } else {
+//            return "redirect:/";
+//        }
+//
+//        return "shoppingCart";
+//    }
+
+
     @GetMapping("/viewCart")
     public String viewCart(Model model, HttpSession session) {
         Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
 
         if (loggedInUserId != null) {
-            ShoppingCart cart = shoppingCartService.getShoppingCartById(loggedInUserId);
+            ShoppingCart cart = shoppingCartService.getShoppingCartByUserId(loggedInUserId);
+            Long cartId = cart.getId(); // Get the cartId from the user's shopping cart
+            List<CartItem> cartItems =  cartItemService.getCartItemsByUserId(cartId);
 
-            if (cart == null) {
-                // Handle the case where the cart is null
-                model.addAttribute("cartItems", new ArrayList<CartItem>()); // Empty list
-                model.addAttribute("totalPrice", 0.0); // Total price is 0
+            if (cartItems.isEmpty()) {
+                model.addAttribute("cartItems", new ArrayList<CartItem>());
+                model.addAttribute("totalPrice", 0.0);
             } else {
-                model.addAttribute("cartItems", cart.getCartItems());
-                double totalPrice = cart.getCartItems().stream()
+                model.addAttribute("cartItems", cartItems);
+                double totalPrice = cartItems.stream()
                         .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
                         .sum();
                 model.addAttribute("totalPrice", totalPrice);
-
-                if (!cart.getCartItems().isEmpty()) {
-                    return "redirect:/shippingDetails";
-                }
             }
+
+            return "shoppingCart";
         } else {
             return "redirect:/";
         }
+    }
 
-        return "shoppingCart";
+
+    @DeleteMapping("/cart_item/{id}/delete")
+    public String deleteCartItem(@PathVariable("id") Long id, HttpSession session) {
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null){
+            return "redirect:/";
+        }
+        cartItemService.deleteThisCartItem(id);
+        return "redirect:/viewCart";
     }
 
 

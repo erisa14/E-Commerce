@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,6 +76,7 @@
             <th>Product Name</th>
             <th>Price</th>
             <th>Image</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -84,7 +85,12 @@
                 <td>${cartItem.product.productName}</td>
                 <td>${cartItem.product.price}</td>
                 <td>
-                    <img src="${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
+                    <img src="/assets/${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
+                </td>
+                <td>
+                    <form:form action="/cart_item/${cartItem.id}/delete" method="delete">
+                        <button class="btn btn-danger mx-1">Delete</button>
+                    </form:form>
                 </td>
             </tr>
         </c:forEach>
