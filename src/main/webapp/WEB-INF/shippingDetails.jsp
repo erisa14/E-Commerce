@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Shipping Details</title>
+    <link rel="stylesheet" href="/css/stylee.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <!-- For any Bootstrap that uses JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -25,44 +26,31 @@
             align-items: center;
             justify-content: center;
         }
-        /*nav bar*/
-        .navbar-background {
-            background-color: #90caf9;
-        }
 
-        /* HEADER classes */
-        .header {
-            font-size: 40px;
-            font-weight: bold;
-            font-family: sans-serif;
-            color: #1254a1;
-            margin: 20px 0px;
-        }
     </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light navbar-background">
+<body class="font">
+<nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
+        <a class="navbar-brand" href="/users/home">Dashboard</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" style="border: transparent solid 1px; color: #1254a1; font-weight: bold">Categories</button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
-                    <ul class="dropdown-menu">
-                        <c:forEach items="${categories}" var="category">
-                            <li><a class="dropdown-item" href="/admin/${category.name}">${category.name}</a></li>
-                        </c:forEach>
-                    </ul>
-                </li>
-            </ul>
+            <li class="nav-item dropdown nav nav-pills">
+                <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
+                <ul class="dropdown-menu ">
+                    <c:forEach items="${categories}" var="category">
+                        <li><a class="dropdown-item" href="/users/${category.name}">${category.name}</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
         </div>
-        <a class="navbar-brand" href="#" style="color: #1254a1">
+        <a class="navbar-brand" href="#">
             <i class="fas fa-heart"></i>
         </a>
-        <a class="navbar-brand" href="/viewCart" style="color: #1254a1">
+        <a class="navbar-brand" href="/viewCart" >
             <i class="fas fa-shopping-cart"></i>
         </a>
-        <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
+        <a class="navbar-brand" href="/logout" >Log out</a>
     </div>
 </nav>
 <div class="container">

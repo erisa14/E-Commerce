@@ -39,10 +39,10 @@ public class ChargeController {
             model.addAttribute("status", charge.getStatus());
             model.addAttribute("chargeId", charge.getId());
             model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-            return "result";
+            return "result.html";
         } catch (StripeException e) {
             model.addAttribute("error", e.getMessage());
-            return "result";
+            return "result.html";
         } catch (AuthenticationException e) {
             throw new RuntimeException(e);
         }
@@ -51,6 +51,6 @@ public class ChargeController {
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
-        return "result";
+        return "result.html";
     }
 }

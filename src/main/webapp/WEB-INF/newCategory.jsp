@@ -45,7 +45,7 @@
     </tr>
     <tr>
         <td class="col-sm-6">
-            <form:label path="categoryImage" class="ms-2 fw-semibold col-form-label">Category Name:</form:label></td>
+            <form:label path="categoryImage" class="ms-2 fw-semibold col-form-label">Category Image:</form:label></td>
         <td>
             <form:errors path="categoryImage" class="errors text-danger"/>
             <form:input path="categoryImage" type="file" class="form-control"/>

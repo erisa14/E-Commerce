@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/stylee.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
@@ -30,10 +31,6 @@
         }
 
 
-        /*nav bar*/
-        .navbar-background {
-            background-color: #90caf9;
-        }
 
         /* HEADER classes */
         .header {
@@ -45,13 +42,14 @@
         }
     </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light navbar-background">
+<body class="font">
+<nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
+        <a class="navbar-brand" href="/users/home">Dashboard</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" style="border: transparent solid 1px; color: #1254a1; font-weight: bold">Categories</button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <li class="nav-item dropdown nav nav-pills">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
+                <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
                 <ul class="dropdown-menu ">
                     <c:forEach items="${categories}" var="category">
                         <li><a class="dropdown-item" href="/users/${category.name}">${category.name}</a></li>
@@ -59,18 +57,18 @@
                 </ul>
             </li>
         </div>
-        <a class="navbar-brand" href="#" style="color: #1254a1">
+        <a class="navbar-brand" href="#">
             <i class="fas fa-heart"></i>
         </a>
-        <a class="navbar-brand" href="/viewCart" style="color: #1254a1">
+        <a class="navbar-brand" href="/viewCart" >
             <i class="fas fa-shopping-cart"></i>
         </a>
-        <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
+        <a class="navbar-brand" href="/logout" >Log out</a>
     </div>
 </nav>
 <div class="container">
-    <h1>Shopping Cart</h1>
-    <table class="table table-bordered">
+    <h1 class="mt-2">Shopping Cart</h1>
+    <table class="table border border-3 border-dark text-center">
         <thead>
         <tr>
             <th>Product Name</th>
@@ -83,7 +81,7 @@
         <c:forEach items="${cartItems}" var="cartItem">
             <tr>
                 <td>${cartItem.product.productName}</td>
-                <td>${cartItem.product.price}</td>
+                <td>$${cartItem.product.price}</td>
                 <td>
                     <img src="/assets/${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
                 </td>
@@ -96,13 +94,15 @@
         </c:forEach>
         </tbody>
     </table>
-    <p>Total Price: ${totalPrice}</p>
+    <p class="fs-4 text-end">Total Price: <span class="text-danger fw-bold">$${totalPrice}</span></p>
+    <div class="d-flex gap-2 justify-content-end">
+        <form action="/shippingDetails" method="post">
+            <input type="submit" class="btn btn-primary" value="Next">
+        </form>
 
-    <form action="/shippingDetails" method="post">
-        <input type="submit" class="btn btn-primary" value="Next">
-    </form>
+        <a href="/users/home" class="btn btn-secondary">Back</a>
+    </div>
 
-    <a href="/" class="btn btn-secondary">Cancel</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

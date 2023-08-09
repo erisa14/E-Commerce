@@ -211,34 +211,6 @@ public class MainController {
         return "redirect:/";
     }
 
-//    @GetMapping("/viewCart")
-//    public String viewCart(Model model, HttpSession session) {
-//        Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
-//
-//        if (loggedInUserId != null) {
-//            ShoppingCart cart = shoppingCartService.getShoppingCartById(loggedInUserId);
-//
-//            if (cart == null) {
-//                // Handle the case where the cart is null
-//                model.addAttribute("cartItems", new ArrayList<CartItem>()); // Empty list
-//                model.addAttribute("totalPrice", 0.0); // Total price is 0
-//            } else {
-//                model.addAttribute("cartItems", cart.getCartItems());
-//                double totalPrice = cart.getCartItems().stream()
-//                        .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
-//                        .sum();
-//                model.addAttribute("totalPrice", totalPrice);
-//
-//                if (!cart.getCartItems().isEmpty()) {
-//                    return "redirect:/shippingDetails";
-//                }
-//            }
-//        } else {
-//            return "redirect:/";
-//        }
-//
-//        return "shoppingCart";
-//    }
 
 
     @GetMapping("/viewCart")
@@ -253,12 +225,14 @@ public class MainController {
             if (cartItems.isEmpty()) {
                 model.addAttribute("cartItems", new ArrayList<CartItem>());
                 model.addAttribute("totalPrice", 0.0);
+                model.addAttribute("categories",categoryService.getAll());
             } else {
                 model.addAttribute("cartItems", cartItems);
                 double totalPrice = cartItems.stream()
                         .mapToDouble(cartItem -> cartItem.getProduct().getPrice())
                         .sum();
                 model.addAttribute("totalPrice", totalPrice);
+                model.addAttribute("categories",categoryService.getAll());
             }
 
             return "shoppingCart";
@@ -278,7 +252,6 @@ public class MainController {
         return "redirect:/viewCart";
     }
 
-
     @PostMapping("/shippingDetails")
     public String processShippingDetailsForm(@Valid @ModelAttribute("shippingDetails") ShippingDetails shippingDetails,
                                              BindingResult result, HttpSession session) {
@@ -290,7 +263,6 @@ public class MainController {
         shippingDetails.setUser(user);
 
         shippingDetailsService.saveShippingDetails(shippingDetails);
-
         return "redirect:/charge";
     }
 

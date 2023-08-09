@@ -68,7 +68,7 @@
             <form:label path="color" class="ms-2 fw-semibold col-form-label">Color:</form:label></td>
         <td>
             <form:errors path="color" class="errors text-danger"/>
-            <form:input path="color" type="color" class="form-control"/>
+            <form:input path="color" type="text" class="form-control"/>
         </td>
     </tr>
     <tr>

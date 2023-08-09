@@ -7,7 +7,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>project</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/stylee.css">
     <!-- for Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <!-- For any Bootstrap that uses JS -->
@@ -31,19 +32,6 @@
         }
 
 
-        /*nav bar*/
-        .navbar-background {
-            background-color: #90caf9;
-        }
-
-        /* HEADER classes */
-        .header {
-            font-size: 40px;
-            font-weight: bold;
-            font-family: sans-serif;
-            color: #1254a1;
-            margin: 20px 0px;
-        }
 
         /* BUTTON classes */
 
@@ -55,55 +43,61 @@
             padding: 15px 10px 0px 10px;
         }
         .view-img {
-            border: 1.5px solid #1254a1;
-            border-radius: 10px;
             width: 200px;
             height: 200px;
             padding: 20px;
+            margin: 0 auto;
+        }
+        .view-image {
+            width: 100%;
+            height: 300px;
+            border: solid 2px #1254a1;
+            color: #1254a1;
+            margin: 0 auto;
         }
     </style>
 
 </head>
-<body style="background-color: #f5fbff;">
-<div class="my-container">
+<body class="font">
     <!-- NAV BAR -->
-    <nav class="navbar navbar-expand-lg navbar-light navbar-background">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-style">
         <div class="container-fluid">
+            <a class="navbar-brand" href="/users/home">Dashboard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" style="border: transparent solid 1px; color: #1254a1; font-weight: bold">Categories</button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <li class="nav-item dropdown nav nav-pills">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
-                    <ul class="dropdown-menu ">
+                    <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
+                    <ul class="dropdown-menu navbar-style">
                         <c:forEach items="${categories}" var="category">
                             <li><a class="dropdown-item" href="/users/${category.name}">${category.name}</a></li>
                         </c:forEach>
                     </ul>
                 </li>
             </div>
-            <a class="navbar-brand" href="#" style="color: #1254a1">
+            <a class="navbar-brand" href="#">
                 <i class="fas fa-heart"></i>
             </a>
-            <a class="navbar-brand" href="/viewCart" style="color: #1254a1">
+            <a class="navbar-brand" href="/viewCart" >
                 <i class="fas fa-shopping-cart"></i>
             </a>
-            <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
+            <a class="navbar-brand" href="/logout" >Log out</a>
         </div>
     </nav>
 
-    <!-- CAROUSEL -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-bottom: 40px">
+    <div id="carouselExampleIndicators" class="carousel slide mt-2 p-2" data-bs-ride="carousel" style="margin-bottom: 40px">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="view-image" onclick="location.href='/users/${categories[0].name}'"><img src="/assets/${category.categoryImage}" class="d-block w-100" alt="${categories[0].name}"></div>
             </div>
             <c:forEach var="category" items="${categories}" begin="1">
                 <div class="carousel-item">
-                    <div class="view-image" onclick="location.href='/users/${category.name}'"><img src="/assets/${category.categoryImage}" class="d-block w-100" alt="${category.name}"></div>
+                    <div class="view-image" onclick="location.href='/users/${category.name}'"><img src="/assets/${category.categoryImage}" style="height: 300px" class="d-block w-100" alt="${category.name}"></div>
                 </div>
             </c:forEach>
         </div>
     </div>
 
+    <div class="my-container">
 
     <div class="row">
         <c:forEach items="${categories}" var="category">

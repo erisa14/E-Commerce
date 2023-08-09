@@ -53,6 +53,7 @@ public class UserViewController {
         model.addAttribute("user", user);
 
         Category categoryName = categoryService.getByName(category);
+        model.addAttribute("categoryName",categoryName);
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("products", productService.getByCategoryName(categoryName));
         return "userCategory";
@@ -66,6 +67,7 @@ public class UserViewController {
         }
         Product product = productService.find(productId);
         model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.getAll());
         return "viewProductDetails";
 
     }
