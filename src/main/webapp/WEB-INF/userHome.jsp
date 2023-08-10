@@ -47,7 +47,6 @@
         .view-image {
             width: 100%;
             height: 300px;
-            border: solid 2px #1254a1;
             color: #1254a1;
             margin: 0 auto;
         }
@@ -85,7 +84,7 @@
 <div id="carouselExampleIndicators" class="carousel slide mt-2 p-2" data-bs-ride="carousel" style="margin-bottom: 40px">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <div class="view-image" onclick="location.href='/users/${categories[0].name}'"><img src="/assets/${category.categoryImage}" class="d-block w-100" alt="${categories[0].name}s"></div>
+            <div class="view-image" onclick="location.href='/users/${categories[0].name}'"><img src="/assets/${categories[0].categoryImage}" class="d-block w-100" alt="${categories[0].name}s"></div>
         </div>
         <c:forEach var="category" items="${categories}" begin="1">
             <div class="carousel-item">
@@ -94,6 +93,7 @@
         </c:forEach>
     </div>
 </div>
+
 
 
 <div class="my-container">

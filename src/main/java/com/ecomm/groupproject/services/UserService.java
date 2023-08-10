@@ -1,18 +1,12 @@
 package com.ecomm.groupproject.services;
 
-import com.ecomm.groupproject.models.LoginUser;
-import com.ecomm.groupproject.models.Role;
-import com.ecomm.groupproject.models.ShoppingCart;
-import com.ecomm.groupproject.models.User;
-import com.ecomm.groupproject.repositories.RoleRepository;
-import com.ecomm.groupproject.repositories.ShoppingCartRepository;
-import com.ecomm.groupproject.repositories.UserRepository;
+import com.ecomm.groupproject.models.*;
+import com.ecomm.groupproject.repositories.*;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -23,11 +17,11 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private WishlistRepository wishlistRepository;
 
     public User register(User newUser, BindingResult result){
-
         Optional<User> potentionalUser=this.userRepository.findByEmail(newUser.getEmail());
-
         boolean isFirstUser = userRepository.count() == 0;
 
         // Assign roles based on the user count
@@ -60,12 +54,18 @@ public class UserService {
             }
             // instead of    --   return userRepository.save(newUser);
             User savedUser = userRepository.save(newUser);
-            // Automatically create a shopping cart for the user (role - customer)
             if (!isFirstUser) {
+                // Automatically create a shopping cart for the user (role - customer)
                 ShoppingCart shoppingCart = new ShoppingCart();
                 shoppingCartRepository.save(shoppingCart);
                 shoppingCart.setUser(savedUser);
                 savedUser.setShoppingCart(shoppingCart);
+                userRepository.save(savedUser); // Save the updated user
+                // Automatically create a wishlist for the user (role - customer)
+                Wishlist wishlist = new Wishlist();
+                wishlistRepository.save(wishlist);
+                wishlist.setUser(savedUser);
+                savedUser.setWishlist(wishlist);
                 userRepository.save(savedUser); // Save the updated user
             }
             return savedUser;
@@ -94,6 +94,7 @@ public class UserService {
             return potentionalUser.get();
         }
     }
+
     public User findUserById(Long id){
         return this.userRepository.findById(id).orElse(null);
     }
