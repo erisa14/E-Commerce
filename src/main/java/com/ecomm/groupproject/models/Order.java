@@ -38,6 +38,7 @@ public class Order {
     private int zipCode;
     private String notes;
 
+    private double totalAmount;
     private double shippingFee=3.50;
 
     public Order() {

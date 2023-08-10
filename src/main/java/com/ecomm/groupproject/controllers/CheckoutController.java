@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
-@Controller
-public class CheckoutController {
+    @Controller
+    public class CheckoutController {
 
-    @Value("${STRIPE_PUBLIC_KEY}")
-    private String stripePublicKey;
+        @Value("${STRIPE_PUBLIC_KEY}")
+        private String stripePublicKey;
 
-    // Other properties and constructor
+        // Other properties and constructor
 
-    @RequestMapping("/checkout")
-    public String checkout(Model model) {
-        model.addAttribute("amount", 50 * 100); // in cents
-        model.addAttribute("stripePublicKey", stripePublicKey);
-        model.addAttribute("currency", ChargeRequest.Currency.EUR);
-        return "checkout.html";
+        @RequestMapping("/checkout")
+        public String checkout(Model model) {
+            model.addAttribute("amount", 50 * 100); // in cents
+            model.addAttribute("stripePublicKey", stripePublicKey);
+            model.addAttribute("currency", ChargeRequest.Currency.EUR);
+            return "checkout.jsp";
+        }
     }
-}

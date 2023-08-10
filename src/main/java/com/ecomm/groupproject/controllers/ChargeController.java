@@ -1,5 +1,7 @@
 package com.ecomm.groupproject.controllers;
 
+import com.ecomm.groupproject.models.Order;
+import com.ecomm.groupproject.services.OrderService;
 import org.springframework.ui.Model;
 import com.ecomm.groupproject.models.ChargeRequest;
 import com.ecomm.groupproject.services.StripeService;
@@ -21,6 +23,8 @@ public class ChargeController {
 
     @Autowired
     StripeService paymentsService;
+    @Autowired
+    private OrderService orderService;
 
     @PostMapping("/charge")
     public String charge(
@@ -39,10 +43,20 @@ public class ChargeController {
             model.addAttribute("status", charge.getStatus());
             model.addAttribute("chargeId", charge.getId());
             model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-            return "result.html";
+
+
+
+            // Create an Order instance
+            Order order = new Order();
+            order.setTotalAmount(amount);
+            // ... set other relevant attributes
+
+            // Save the order to your database
+            orderService.save(order);
+            return "result.jsp";
         } catch (StripeException e) {
             model.addAttribute("error", e.getMessage());
-            return "result.html";
+            return "result.jsp";
         } catch (AuthenticationException e) {
             throw new RuntimeException(e);
         }
@@ -51,6 +65,6 @@ public class ChargeController {
     @ExceptionHandler(StripeException.class)
     public String handleError(Model model, StripeException ex) {
         model.addAttribute("error", ex.getMessage());
-        return "result.html";
+        return "result.jsp";
     }
 }
