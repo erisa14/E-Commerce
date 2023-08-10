@@ -4,9 +4,11 @@ import com.ecomm.groupproject.models.LoginUser;
 import com.ecomm.groupproject.models.Role;
 import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.models.ShoppingCart;
+import com.ecomm.groupproject.models.Wishlist;
 import com.ecomm.groupproject.repositories.RoleRepository;
 import com.ecomm.groupproject.repositories.ShoppingCartRepository;
 import com.ecomm.groupproject.repositories.UserRepository;
+import com.ecomm.groupproject.repositories.WishlistRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
     private ShoppingCartRepository shoppingCartRepository;
     @Autowired
-    private RoleRepository roleRepository;
+    private WishlistRepository wishlistRepository;
 
     public User register(User newUser, BindingResult result){
 
@@ -70,6 +74,14 @@ public class UserService {
                 shoppingCartRepository.save(shoppingCart);
                 shoppingCart.setUser(savedUser);
                 savedUser.setShoppingCart(shoppingCart);
+                userRepository.save(savedUser); // Save the updated user
+            }
+            // Automatically create a wishlist for the user (role - customer)
+            if (!isFirstUser) {
+                Wishlist wishlist = new Wishlist();
+                wishlistRepository.save(wishlist);
+                wishlist.setUser(savedUser);
+                savedUser.setWishlist(wishlist);
                 userRepository.save(savedUser); // Save the updated user
             }
             return savedUser;

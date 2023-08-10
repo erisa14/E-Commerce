@@ -81,5 +81,8 @@ public class User {
     @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
     private ShoppingCart shoppingCart;
 
+    @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
+    private Wishlist wishlist;
+
 
 }

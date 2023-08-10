@@ -27,15 +27,20 @@ public class ProductService {
     }
 
 
-    //for wishlist
+    //to be used by admin
+    public void addQuantity (Product product, int value) {
+        product.setQuantity(product.getQuantity() + value);
+    }
+
+
+    /*for wishlist
     public void addToWishlist(Long productId) {
         Product product = productRepository.findById(productId).orElse(null);
         if (product != null) {
-            product.setWishlist(true);
+            product.setWishlistItems(true);
             productRepository.save(product);
         }
     }
-
     public void removeFromWishlist(Long productId) {
         Product product = productRepository.findById(productId).orElse(null);
         if (product != null) {
@@ -43,11 +48,6 @@ public class ProductService {
             productRepository.save(product);
         }
     }
-
-
-
-
-
 
     //for SEARCH
     public List<Product> searchProducts(String searchTerm) {
@@ -64,4 +64,5 @@ public class ProductService {
 
         return productRepository.findAll(spec);
     }
+     */
 }

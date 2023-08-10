@@ -14,8 +14,10 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findAll();
     List<Product> findByCategory(Category category);
 
+    Product findByIdIs(Long id);
 
     // for SEARCH
+
     List<Product> findAll(Specification<Product> specification);
 
 }

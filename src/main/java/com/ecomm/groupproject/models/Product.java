@@ -43,8 +43,8 @@ public class Product {
 
 
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean wishlist;
+//    @Column(columnDefinition = "boolean default false")
+//    private boolean wishlist;
 
 
 
@@ -58,10 +58,12 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
 
+    @Column(updatable=false)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<WishlistItem> wishlistItems;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-
-
 
 }
