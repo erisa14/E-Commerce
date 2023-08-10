@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/stylee.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
@@ -16,67 +17,90 @@
 
     <!-- MY own CSS -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        .my-container {
-            padding: 35px 45px;
-        }
-        .justify-center {                   /*     center     */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /*nav bar*/
         .navbar-background {
-            background-color: #90caf9;
-        }
-        .my-nav-item {
-            color: #1254a1;
+            background-color: #f8f9fa; /* Light gray background color */
         }
 
-        /* HEADER classes */
-        .header {
-            font-size: 40px;
-            font-weight: bold;
-            font-family: sans-serif;
-            color: #1254a1;
-            margin: 20px 0px;
+        body {
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        .container {
+            background-color: #ffffff; /* White background color */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1254a1; /* Blue text color */
+        }
+
+        th {
+            background-color: #1254a1; /* Blue background color */
+            color: black; /* White text color */
+        }
+
+        .table-bordered {
+            border: 1px solid #dee2e6; /* Light gray border */
+        }
+
+        /* Customize button styling */
+        .btn-primary {
+            background-color: #1254a1; /* Blue background color */
+            border-color: #1254a1; /* Blue border color */
+        }
+
+        .btn-primary:hover {
+            background-color: #0c457d; /* Darker blue background color on hover */
+            border-color: #0c457d; /* Darker blue border color on hover */
+        }
+
+        .btn-secondary {
+            background-color: #6c757d; /* Gray background color */
+            border-color: #6c757d; /* Gray border color */
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray background color on hover */
+            border-color: #5a6268; /* Darker gray border color on hover */
+        }
+
+        /* Add background image */
+        .background-image {
+            background-image: url('/assets/cart.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light navbar-background">
+<body class="background-image font">
+<!-- NAV BAR -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
+        <a class="navbar-brand" href="/users/home">Dashboard</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" style="border: transparent solid 1px; color: #1254a1; font-weight: bold">Categories</button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/home" style="color: #1254a1">All products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/laptop" style="color: #1254a1">Laptops</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cellphone" style="color: #1254a1">Cellphones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/pc" style="color: #1254a1">PCs</a>
-                </li>
-            </ul>
+            <li class="nav-item dropdown nav nav-pills">
+                <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
+                <ul class="dropdown-menu navbar-style">
+                    <c:forEach items="${categories}" var="category">
+                        <li><a class="dropdown-item" href="/users/${category.name}">${category.name}s</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
         </div>
-
-        <a class="navbar-brand" href="/viewWishlist" style="color: #1254a1">
+        <a class="navbar-brand" href="/viewWishlist">
             <i class="fas fa-heart"></i>
         </a>
-        <a class="navbar-brand" href="/viewCart" style="color: #1254a1">
+        <a class="navbar-brand" href="/viewCart">
             <i class="fas fa-shopping-cart"></i>
         </a>
-        <a class="navbar-brand" href="/logout" style="color: #1254a1; font-weight: bold">Log out</a>
+        <a class="navbar-brand" href="/logout" >Log out</a>
     </div>
 </nav>
+
 <div class="container">
     <h1>Shopping Cart</h1>
     <table class="table table-bordered">
@@ -96,26 +120,28 @@
                 <td>
                     <img src="/assets/${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
                 </td>
-                <td class="d-flex">
+                <td>
                     <form:form action="/cart_item/${cartItem.id}/delete" method="delete">
-                        <button class="btn btn-danger mx-1">Remove</button>
+                        <button class="btn btn-danger mx-1">Delete</button>
                     </form:form>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <p>Total Price: ${totalPrice}</p>
 
-    <form action="/shippingDetails" method="post">
-        <input type="submit" class="btn btn-primary" value="Next">
-    </form>
+    <p class="text-end fs-4">Total Price: <span class="text-danger">$${totalPrice}</span></p>
+    <div class="d-flex gap-3 justify-content-end">
+        <form action="/shippingDetails" method="post">
+            <input type="hidden" name="totalPrice" value="${totalPrice}">
+            <input type="submit" class="btn btn-primary" value="Next">
+        </form>
 
-    <a href="/" class="btn btn-secondary">Cancel</a>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

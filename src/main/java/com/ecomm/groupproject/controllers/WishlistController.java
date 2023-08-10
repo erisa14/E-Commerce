@@ -44,22 +44,19 @@ public class WishlistController {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
 
-
         Wishlist wishlist = wishlistService.getWishlistByUserId(userId);
         Long wishlistId = wishlist.getId(); // Get the wishlistId from the user's shopping cart
         List<WishlistItem> wishlistItems =  wishlistItemService.getWishlistItemsByUserId(wishlistId);
 
         if (wishlistItems.isEmpty()) {
             model.addAttribute("wishlistItems", new ArrayList<WishlistItem>());
-            //model.addAttribute("totalPrice", 0.0);
         }
         else {
             model.addAttribute("wishlistItems", wishlistItems);
-//            double totalPrice = wishlistItems.stream().mapToDouble(wishlistItem -> wishlistItem.getProduct().getPrice()).sum();
-//            model.addAttribute("totalPrice", totalPrice);
         }
         return "wishlist";
     }
+
 
     // ADD WISHLIST ITEM
     @PostMapping("/new_wishlist_item")
@@ -77,8 +74,9 @@ public class WishlistController {
         newWishlistItem.setWishlist(wishlist);        // Set the ShoppingCart and other necessary fields
         wishlistItemService.addNewWishlistItem(newWishlistItem);        // Add the newCartItem to the cart
 
-        return "redirect:/home";
+        return "redirect:/users/home";
     }
+
 
     // DELETE CART ITEM
     @DeleteMapping("/wishlist_item/{id}/delete")

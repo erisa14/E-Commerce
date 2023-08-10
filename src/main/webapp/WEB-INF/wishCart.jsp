@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shopping Cart</title>
+    <title>Wishlist</title>
     <link rel="stylesheet" href="/css/stylee.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -75,7 +75,7 @@
         }
     </style>
 </head>
-<body class="background-image font">
+<body class="font">
 <!-- NAV BAR -->
 <nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
@@ -102,8 +102,8 @@
 </nav>
 
 <div class="container">
-    <h1>Wishlist</h1>
-    <table class="table table-bordered">
+    <h1 class="mt-2">Wishlist</h1>
+    <table class="table border border-3 border-dark text-center">
         <thead>
         <tr>
             <th>Product Name</th>
@@ -135,8 +135,7 @@
         </c:forEach>
         </tbody>
     </table>
-
-    <div class="d-flex gap-3 justify-content-end">
+    <div class="d-flex gap-2 justify-content-end">
         <form action="/add_wishlist_item_to_cart" method="post">
             <c:forEach items="${wishlistItems}" var="wishlistItem">
                 <input type="hidden" name="productIds" value="${wishlistItem.product.id}">
@@ -146,6 +145,7 @@
             </button>
         </form>
     </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

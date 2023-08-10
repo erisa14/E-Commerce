@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "wishlist_items")
 public class WishlistItem {
@@ -21,8 +20,7 @@ public class WishlistItem {
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wishlist_items_id")
+    @JoinColumn(name = "wishlist_id")
     private Wishlist wishlist;
-
 
 }

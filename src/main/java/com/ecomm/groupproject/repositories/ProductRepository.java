@@ -2,7 +2,6 @@ package com.ecomm.groupproject.repositories;
 
 import com.ecomm.groupproject.models.Category;
 import com.ecomm.groupproject.models.Product;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,11 +12,5 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     List<Product> findAll();
     List<Product> findByCategory(Category category);
-
-    Product findByIdIs(Long id);
-
-    // for SEARCH
-
-    List<Product> findAll(Specification<Product> specification);
 
 }

@@ -23,7 +23,40 @@ public class CartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
     @Autowired
+    private ShippingDetailsService shippingDetailsService;
+    @Autowired
     private CartItemService cartItemService;
+
+
+    // VIEW - CART
+    @GetMapping("/viewCart")
+    public String viewCart(Model model, HttpSession session) {
+        Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
+        if (loggedInUserId != null) {
+
+            User user = userService.findUserById(loggedInUserId);
+            model.addAttribute("user", user);
+
+            ShoppingCart cart = shoppingCartService.getShoppingCartByUserId(loggedInUserId);
+            Long cartId = cart.getId(); // Get the cartId from the user's shopping cart
+            List<CartItem> cartItems =  cartItemService.getCartItemsByUserId(cartId);
+            if (cartItems.isEmpty()) {
+                model.addAttribute("cartItems", new ArrayList<CartItem>());
+                model.addAttribute("totalPrice", 0.0);
+                model.addAttribute("categories", categoryService.getAll());
+            }
+            else {
+                model.addAttribute("cartItems", cartItems);
+                double totalPrice = cartItems.stream().mapToDouble(cartItem -> cartItem.getProduct().getPrice()).sum();
+                model.addAttribute("totalPrice", totalPrice);
+                model.addAttribute("categories", categoryService.getAll());
+            }
+            return "shoppingCart";
+        }
+        else {
+            return "redirect:/";
+        }
+    }
 
 
     // ADD CART ITEM
@@ -36,17 +69,18 @@ public class CartController {
         User user = userService.findUserById(userId);
         ShoppingCart shoppingCart = user.getShoppingCart();
 
-        Product product = new Product();
-        product.setId(productId);        // Create a new Product instance using the retrieved values
+        Product product = new Product();        // Create a new Product instance using the retrieved values
+        product.setId(productId);
         newCartItem.setProduct(product);        // Set the Product instance to the newCartItem
         newCartItem.setShoppingCart(shoppingCart);        // Set the ShoppingCart and other necessary fields
         cartItemService.addNewCartItem(newCartItem);        // Add the newCartItem to the cart
-        return "redirect:/home";
+        return "redirect:/users/home";
     }
+
 
     // DELETE CART ITEM
     @DeleteMapping("/cart_item/{id}/delete")
-    public String deleteThisCartItem(@PathVariable("id") Long id, HttpSession session) {
+    public String deleteCartItem(@PathVariable("id") Long id, HttpSession session) {
         Long userId = (Long) session.getAttribute("loggedInUserId");
         if (userId == null){
             return "redirect:/";
@@ -59,53 +93,17 @@ public class CartController {
 
 
 
-
-
-    // VIEW - CART
-    @GetMapping("/viewCart")
-    public String viewCart(Model model, HttpSession session) {
-        Long userId = (Long) session.getAttribute("loggedInUserId");
-        if (userId != null) {
-            User user = userService.findUserById(userId);
-            model.addAttribute("user", user);
-            List<Category> categories = categoryService.getAll();
-            model.addAttribute("categories", categories);
-
-
-            ShoppingCart cart = shoppingCartService.getShoppingCartByUserId(userId);
-            Long cartId = cart.getId(); // Get the cartId from the user's shopping cart
-            List<CartItem> cartItems =  cartItemService.getCartItemsByUserId(cartId);
-
-            if (cartItems.isEmpty()) {
-                model.addAttribute("cartItems", new ArrayList<CartItem>());
-                model.addAttribute("totalPrice", 0.0);
-            } else {
-                model.addAttribute("cartItems", cartItems);
-                double totalPrice = cartItems.stream().mapToDouble(cartItem -> cartItem.getProduct().getPrice()).sum();
-                model.addAttribute("totalPrice", totalPrice);
-            }
-            return "shoppingCart";
+    // ADD SHIPPING DETAILS
+    @PostMapping("/shippingDetails")
+    public String processShippingDetailsForm(@Valid @ModelAttribute("shippingDetails") ShippingDetails shippingDetails, BindingResult result, HttpSession session) {
+        if (result.hasErrors()) {
+            return "shippingDetails";
         }
-        else {
-            return "redirect:/";
-        }
+        Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
+        User user = userService.findUserById(loggedInUserId);
+        shippingDetails.setUser(user);
+        shippingDetailsService.saveShippingDetails(shippingDetails);
+        return "redirect:/charge";
     }
-
-
-    /*
-    @GetMapping("/shoppingCart")
-    public String viewCartItems(HttpSession session, Model model){
-        Long userId = (Long) session.getAttribute("loggedInUserId");
-        if (userId == null){
-            return "redirect:/";
-        }
-        User user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-
-        model.addAttribute("shoppingCart", user.getShoppingCart());     //shoppingCartService.getShoppingCartById(shoppingCartService.getShoppingCartIdByUserId(userId))
-        model.addAttribute("cartItems", user.getShoppingCart().getCartItems());     //cartItemService.getAllCartItems()
-        return "userViewShoppingCart";
-    }
-     */
 
 }

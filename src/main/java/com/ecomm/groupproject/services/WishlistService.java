@@ -1,7 +1,6 @@
 package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.Wishlist;
-import com.ecomm.groupproject.models.WishlistItem;
 import com.ecomm.groupproject.repositories.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

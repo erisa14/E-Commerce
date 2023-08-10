@@ -2,9 +2,7 @@ package com.ecomm.groupproject.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -13,6 +11,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 
 @Entity
 @Table(name = "categories")
@@ -23,6 +23,9 @@ public class Category {
 
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String categoryImage;
 
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -38,7 +41,7 @@ public class Category {
         this.updatedAt = new Date();
     }
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> product;
 
 }

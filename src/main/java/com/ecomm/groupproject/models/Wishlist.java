@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-
 @Entity
 @Table(name = "wishlist")
 public class Wishlist {
@@ -18,8 +17,8 @@ public class Wishlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private User user;
 
     @Column(updatable=false)

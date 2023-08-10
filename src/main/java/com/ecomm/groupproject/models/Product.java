@@ -1,9 +1,9 @@
 package com.ecomm.groupproject.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Getter
+@Setter
 @Entity
 @Table(name = "products")
 public class Product {
@@ -40,23 +41,13 @@ public class Product {
     private  String color;
     private int quantity;
 
-
-
-
-//    @Column(columnDefinition = "boolean default false")
-//    private boolean wishlist;
-
-
-
-
-
     @Column(updatable=false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<OrderItem> orderItem;
 
     @Column(updatable=false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<CartItem> cartItems;
+    private List<CartItem> cartItem;
 
     @Column(updatable=false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)

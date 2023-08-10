@@ -11,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-
 @Entity
 @Table(name = "shoppingCart")
 public class ShoppingCart {
@@ -29,9 +28,9 @@ public class ShoppingCart {
     @JoinColumn(name = "user_id")
     private User user;
 
+
     @Column(updatable=false)
     @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
-
 
 }

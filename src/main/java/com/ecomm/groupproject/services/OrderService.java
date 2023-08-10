@@ -15,4 +15,8 @@ public class OrderService {
     public List<Order> getAll(){
         return orderRepository.findAll();
     }
+    public Order findById(Long id){
+        return orderRepository.findById(id).orElse(null);
+    }
+
 }

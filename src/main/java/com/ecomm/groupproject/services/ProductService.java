@@ -2,11 +2,8 @@ package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.Category;
 import com.ecomm.groupproject.models.Product;
-import com.ecomm.groupproject.models.User;
 import com.ecomm.groupproject.repositories.ProductRepository;
-import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,53 +13,39 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+
+    public void addCategory(Product product, Category category){
+        List<Category> categories= (List<Category>) product.getCategory();
+        categories.add(category);
+        productRepository.save(product);
+    }
+
+    public Product create(Product product){
+        return productRepository.save(product);
+    }
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    // these 2 are the same
+    public List<Product> getByCategory(Category category){
+        return productRepository.findByCategory(category);
     }
     public List<Product> getByCategoryName(Category category){
         return productRepository.findByCategory(category);
     }
+    //
     public Product getProductById(Long id){
         return this.productRepository.findById(id).orElse(null);
     }
-
-
-    //to be used by admin
-    public void addQuantity (Product product, int value) {
-        product.setQuantity(product.getQuantity() + value);
+    public void deleteProduct(Long id){
+        productRepository.deleteById(id);
+    }
+    public Product find(Long id){
+        return productRepository.findById(id).orElse(null);
+    }
+    public void update(Product product) {
+        productRepository.save(product);
     }
 
-
-    /*for wishlist
-    public void addToWishlist(Long productId) {
-        Product product = productRepository.findById(productId).orElse(null);
-        if (product != null) {
-            product.setWishlistItems(true);
-            productRepository.save(product);
-        }
-    }
-    public void removeFromWishlist(Long productId) {
-        Product product = productRepository.findById(productId).orElse(null);
-        if (product != null) {
-            product.setWishlist(false);
-            productRepository.save(product);
-        }
-    }
-
-    //for SEARCH
-    public List<Product> searchProducts(String searchTerm) {
-        Specification<Product> spec = (root, query, criteriaBuilder) -> {
-            // Add search conditions here using criteriaBuilder
-            String likeSearchTerm = "%" + searchTerm + "%";
-            Predicate predicate = criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), likeSearchTerm),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), likeSearchTerm)
-                    // Add more attributes to search here as needed
-            );
-            return predicate;
-        };
-
-        return productRepository.findAll(spec);
-    }
-     */
 }

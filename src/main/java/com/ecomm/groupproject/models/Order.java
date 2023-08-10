@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,7 +16,8 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
 public class Order {
