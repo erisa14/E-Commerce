@@ -4,11 +4,16 @@ import com.ecomm.groupproject.models.*;
 import com.ecomm.groupproject.services.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -141,5 +146,6 @@ public class AdminController {
         model.addAttribute("categories", categoryService.getAll());
         return "viewOrderDetails.jsp";
     }
+
 
 }

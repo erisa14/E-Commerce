@@ -3,6 +3,7 @@ package com.ecomm.groupproject.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -19,6 +20,9 @@ public class OrderItem {
 
     @Min(1)
     private int quantity;
+
+    @NotNull
+    private double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")

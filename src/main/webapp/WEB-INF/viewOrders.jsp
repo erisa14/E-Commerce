@@ -6,8 +6,15 @@
     <title>Home</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        .background-image {
+            background-image: url('/assets/e.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
-<body>
+<body class="background-image">
 <ul class="nav nav-pills bg-dark d-flex justify-content-between p-2">
     <li class="nav-item">
         <a class="nav-link active"  href="/admin/home">Dashboard</a>
@@ -30,6 +37,7 @@
         <a class="nav-link" href="/logout">Logout</a>
     </li>
 </ul>
+
     <table class="container table table-striped border border-3 border-dark text-center mt-3">
         <thead>
         <tr>

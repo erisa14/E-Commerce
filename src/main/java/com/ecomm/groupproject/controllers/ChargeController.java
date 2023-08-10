@@ -1,9 +1,14 @@
 package com.ecomm.groupproject.controllers;
 
-import com.ecomm.groupproject.models.Order;
+import com.ecomm.groupproject.models.*;
+import com.ecomm.groupproject.repositories.OrderItemRepository;
+import com.ecomm.groupproject.repositories.OrderRepository;
 import com.ecomm.groupproject.services.OrderService;
+import com.ecomm.groupproject.services.ShoppingCartService;
+import com.ecomm.groupproject.services.UserService;
+import jakarta.servlet.http.HttpSession;
+import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.ui.Model;
-import com.ecomm.groupproject.models.ChargeRequest;
 import com.ecomm.groupproject.services.StripeService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import javax.naming.AuthenticationException;
+import java.util.List;
 
 @Log
 @Controller
@@ -26,11 +32,26 @@ public class ChargeController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ShoppingCartService shoppingCartService;
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @PostMapping("/charge")
     public String charge(
             @RequestParam(name = "amount") double amount,
             @RequestParam(name = "stripeToken") String stripeToken,
-            Model model) {
+            Model model, HttpSession session) {
+        Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
+        User user = userService.findUserById(loggedInUserId);
+
+
         ChargeRequest chargeRequest = new ChargeRequest();
         chargeRequest.setDescription("Example charge");
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
@@ -43,16 +64,6 @@ public class ChargeController {
             model.addAttribute("status", charge.getStatus());
             model.addAttribute("chargeId", charge.getId());
             model.addAttribute("balance_transaction", charge.getBalanceTransaction());
-
-
-
-            // Create an Order instance
-            Order order = new Order();
-            order.setTotalAmount(amount);
-            // ... set other relevant attributes
-
-            // Save the order to your database
-            orderService.save(order);
             return "result.jsp";
         } catch (StripeException e) {
             model.addAttribute("error", e.getMessage());

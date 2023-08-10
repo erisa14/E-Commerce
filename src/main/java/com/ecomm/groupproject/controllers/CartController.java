@@ -95,7 +95,7 @@ public class CartController {
 
     // ADD SHIPPING DETAILS
     @PostMapping("/shippingDetails")
-    public String processShippingDetailsForm(@Valid @ModelAttribute("shippingDetails") ShippingDetails shippingDetails, BindingResult result, HttpSession session) {
+    public String processShippingDetailsForm(@Valid @ModelAttribute("shippingDetails") ShippingDetails shippingDetails, BindingResult result, HttpSession session,Model model) {
         if (result.hasErrors()) {
             return "shippingDetails.jsp";
         }

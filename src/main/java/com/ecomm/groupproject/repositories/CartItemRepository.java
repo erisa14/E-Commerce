@@ -1,6 +1,7 @@
 package com.ecomm.groupproject.repositories;
 
 import com.ecomm.groupproject.models.CartItem;
+import com.ecomm.groupproject.models.ShoppingCart;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

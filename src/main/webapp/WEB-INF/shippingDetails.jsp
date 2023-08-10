@@ -26,10 +26,84 @@
             align-items: center;
             justify-content: center;
         }
+        /nav bar/
+        .navbar-background {
+            background-color: #90caf9;
+        }
+
+        /* HEADER classes */
+        .header {
+            font-size: 40px;
+            font-weight: bold;
+            font-family: sans-serif;
+            color: #1254a1;
+            margin: 20px 0px;
+        }
+
+        .navbar-background {
+            background-color: #f9f8f9; /* Light gray background color */
+        }
+
+        /* Add more styling rules as needed */
+
+        body {
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        .container {
+            background-color: #ffffff; /* White background color */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1254a1; /* Blue text color */
+        }
+
+        label {
+            color: #343a40; /* Dark gray text color */
+        }
+
+        /* Customize form input styling */
+        .form-control {
+            background-color: #f8f9fa; /* Light gray background color */
+            border-color: #ced4da; /* Light gray border color */
+            color: #212529; /* Dark gray text color */
+        }
+
+        /* Customize button styling */
+        .btn-primary {
+            background-color: #1254a1; /* Blue background color */
+            border-color: #1254a1; /* Blue border color */
+        }
+
+        .btn-primary:hover {
+            background-color: #0c457d; /* Darker blue background color on hover */
+            border-color: #0c457d; /* Darker blue border color on hover */
+        }
+
+        .btn-secondary {
+            background-color: #6c757d; /* Gray background color */
+            border-color: #6c757d; /* Gray border color */
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray background color on hover */
+            border-color: #5a6268; /* Darker gray border color on hover */
+        }
+
+        /* Add background image */
+        .background-image {
+            background-image: url('/assets/plane.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
 
     </style>
 </head>
-<body class="font">
+<body class="background-image font">
 <!-- NAV BAR -->
 <nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
@@ -99,15 +173,15 @@
         </div>
     </form>
 
-    <p>Total Price: ${totalPrice}</p>
-    <form action="/checkout" method="post">
+    <div class="d-flex gap-3 justify-content-end mt-2">
+    <form action="/checkout" method="post" id="checkout-form">
         <input type="hidden" name="totalPrice" value="${totalPrice}">
-        <input type="hidden" name="stripeToken" value="TOKEN_FROM_STRIPE"> <!-- Replace "TOKEN_FROM_STRIPE" with the actual Stripe token obtained from the frontend -->
+        <input type="hidden" name="stripeToken" value=""> <!-- Leave the value empty -->
 
         <input type="submit" class="btn btn-primary" value="Next">
     </form>
-
     <a href="/viewCart" class="btn btn-secondary">Cancel</a>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

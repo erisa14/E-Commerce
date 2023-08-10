@@ -33,4 +33,6 @@ public class ShoppingCart {
     @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
 
+//    @OneToOne(mappedBy="order", fetch = FetchType.LAZY)
+//    private Order order;
 }

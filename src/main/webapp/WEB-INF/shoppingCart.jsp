@@ -17,13 +17,65 @@
 
     <!-- MY own CSS -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        .navbar-background {
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        body {
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        .container {
+            background-color: #ffffff; /* White background color */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1254a1; /* Blue text color */
+        }
+
+        th {
+            background-color: #1254a1; /* Blue background color */
+            color: black; /* White text color */
+        }
+
+        .table-bordered {
+            border: 1px solid #dee2e6; /* Light gray border */
+        }
+
+        /* Customize button styling */
+        .btn-primary {
+            background-color: #1254a1; /* Blue background color */
+            border-color: #1254a1; /* Blue border color */
+        }
+
+        .btn-primary:hover {
+            background-color: #0c457d; /* Darker blue background color on hover */
+            border-color: #0c457d; /* Darker blue border color on hover */
+        }
+
+        .btn-secondary {
+            background-color: #6c757d; /* Gray background color */
+            border-color: #6c757d; /* Gray border color */
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray background color on hover */
+            border-color: #5a6268; /* Darker gray border color on hover */
+        }
+
+        /* Add background image */
+        .background-image {
+            background-image: url('/assets/cart.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
-<body class="font">
+<body class="background-image font">
 <!-- NAV BAR -->
 <nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
@@ -50,8 +102,8 @@
 </nav>
 
 <div class="container">
-    <h1 class="mt-2">Shopping Cart</h1>
-    <table class="table border border-3 border-dark text-center">
+    <h1>Shopping Cart</h1>
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>Product Name</th>
@@ -77,15 +129,16 @@
         </c:forEach>
         </tbody>
     </table>
-    <p class="fs-4 text-end">Total Price: <span class="text-danger fw-bold">$${totalPrice}</span></p>
-    <div class="d-flex gap-2 justify-content-end">
-        <form action="/shippingDetails" method="post">
-            <input type="submit" class="btn btn-primary" value="Next">
-        </form>
 
-        <a href="/users/home" class="btn btn-secondary">Back</a>
+    <p class="text-end fs-4">Total Price: <span class="text-danger">$${totalPrice}</span></p>
+    <div class="d-flex gap-3 justify-content-end">
+    <form action="/shippingDetails" method="post">
+        <input type="hidden" name="totalPrice" value="${totalPrice}">
+        <input type="submit" class="btn btn-primary" value="Next">
+    </form>
+
+    <a href="/" class="btn btn-secondary">Cancel</a>
     </div>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
