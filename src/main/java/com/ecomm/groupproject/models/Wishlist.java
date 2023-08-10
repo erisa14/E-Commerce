@@ -17,13 +17,12 @@ public class Wishlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(updatable=false)
-    @OneToMany(mappedBy = "wishlist", fetch = FetchType.LAZY)
-    private List<Product> products;
-
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
+    @Column(updatable=false)
+    @OneToMany(mappedBy = "wishlist", fetch = FetchType.LAZY)
+    private List<WishlistItem> wishlistItems;
 
 }

@@ -75,11 +75,11 @@ public class User {
     @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
     private ShoppingCart shoppingCart;
 
-    @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
     private Wishlist wishlist;
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="shipping_id")
     private ShippingDetails shippingDetails;
-}
 
+}

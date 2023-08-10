@@ -28,39 +28,52 @@
         <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
         <ul class="dropdown-menu navbar-style">
           <c:forEach items="${categories}" var="category">
-            <li><a class="dropdown-item" href="/users/${category.name}">${category.name}</a></li>
+            <li><a class="dropdown-item" href="/users/${category.name}">${category.name}s</a></li>
           </c:forEach>
         </ul>
       </li>
     </div>
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/viewWishlist">
       <i class="fas fa-heart"></i>
     </a>
-    <a class="navbar-brand" href="/viewCart" >
+    <a class="navbar-brand" href="/viewCart">
       <i class="fas fa-shopping-cart"></i>
     </a>
     <a class="navbar-brand" href="/logout" >Log out</a>
   </div>
 </nav>
 
-<div class="card w-25 mt-3 mx-auto">
-  <h3 class="card-title mt-1">${product.productName}</h3>
-  <img src="/assets/${product.image}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text">Price: ${product.price}</p>
-    <p class="card-text">Brand: ${product.brand}</p>
-    <p class="card-text" type="color">Color: ${product.color}</p>
-    <p class="card-text">Description: ${product.description}</p>
-    <div class="d-flex justify-content-end">
-      <i class="fas fa-heart navbar-brand justify-center" style="color: #1254a1"></i>
-      <form action="/new_cart_item" method="post">
-        <input type="hidden" name="productId" value="${product.id}">
-        <button type="submit" class="btn btn-light">
-          <i class="fas fa-shopping-cart" style="color: #1254a1;"></i>
-        </button>
-      </form>
-      <a href="/users/home" class="btn btn-secondary">Back</a>
 
+
+<div class="card w-25 mt-3 mx-auto">
+  <div class="d-flex">
+
+    <div class="col">
+      <h3 class="card-title mt-1">${product.productName}</h3>
+      <img src="/assets/${product.image}" class="card-img-top" alt="...">
+    </div>
+
+    <div class="card-body col">
+      <p class="card-text">Price: $${product.price}</p>
+      <p class="card-text">Brand: ${product.brand}</p>
+      <p class="card-text" type="color">Color: ${product.color}</p>
+      <p class="card-text">Description: ${product.description}</p>
+      <div class="d-flex justify-content-end">
+        <form action="/new_wishlist_item" method="post">
+          <input type="hidden" name="productId" value="${product.id}">
+          <button type="submit" class="btn">
+            <i class="fas fa-heart" style="color: #1254a1;"></i>
+          </button>
+        </form>
+        <form action="/new_cart_item" method="post">
+          <input type="hidden" name="productId" value="${product.id}">
+          <button type="submit" class="btn">
+            <i class="fas fa-shopping-cart" style="color: #1254a1;"></i>
+          </button>
+        </form>
+        <a href="/users/home" class="btn btn-outline-secondary">Back</a>
+
+      </div>
     </div>
   </div>
 </div>

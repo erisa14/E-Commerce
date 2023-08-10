@@ -11,11 +11,9 @@ import java.util.List;
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
-
     public List<Order> getAll(){
         return orderRepository.findAll();
     }
-
     public Order findById(Long id){
         return orderRepository.findById(id).orElse(null);
     }

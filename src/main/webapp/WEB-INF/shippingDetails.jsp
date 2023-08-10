@@ -30,6 +30,7 @@
     </style>
 </head>
 <body class="font">
+<!-- NAV BAR -->
 <nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
         <a class="navbar-brand" href="/users/home">Dashboard</a>
@@ -37,22 +38,23 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <li class="nav-item dropdown nav nav-pills">
                 <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
-                <ul class="dropdown-menu ">
+                <ul class="dropdown-menu navbar-style">
                     <c:forEach items="${categories}" var="category">
-                        <li><a class="dropdown-item" href="/users/${category.name}">${category.name}</a></li>
+                        <li><a class="dropdown-item" href="/users/${category.name}">${category.name}s</a></li>
                     </c:forEach>
                 </ul>
             </li>
         </div>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/viewWishlist">
             <i class="fas fa-heart"></i>
         </a>
-        <a class="navbar-brand" href="/viewCart" >
+        <a class="navbar-brand" href="/viewCart">
             <i class="fas fa-shopping-cart"></i>
         </a>
         <a class="navbar-brand" href="/logout" >Log out</a>
     </div>
 </nav>
+
 <div class="container">
     <h1>Shipping Details</h1>
     <form action="/shippingDetails" method="post" modelAttribute="shippingDetails">
@@ -113,4 +115,3 @@
 
 </body>
 </html>
-

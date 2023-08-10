@@ -1,7 +1,6 @@
 package com.ecomm.groupproject.services;
 
 import com.ecomm.groupproject.models.CartItem;
-import com.ecomm.groupproject.models.Product;
 import com.ecomm.groupproject.repositories.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,41 +13,26 @@ public class CartItemService {
     private CartItemRepository cartItemRepository;
 
 
-    //get all CartItems
+    //get CartItems
     public List<CartItem> getAllCartItems() {
         return cartItemRepository.findAll();
     }
     public CartItem getCartItemById(Long id) {
         return cartItemRepository.findById(id).orElse(null);
     }
+    public List<CartItem> getCartItemsByUserId(Long loggedInUserId) {
+        return cartItemRepository.findByShoppingCartId(loggedInUserId);
+    }
 
-    //CREATE + EDIT
+    //CREATE
     public CartItem addNewCartItem(CartItem cartItem) {
-        if(cartItem.getQuantity() == 0) {
-            cartItem.setQuantity(1);
-        }
-        else {
-            cartItem.setQuantity(cartItem.getQuantity()+1);
-        }
+        cartItem.setQuantity(1);
         return cartItemRepository.save(cartItem);
     }
-    public CartItem updateThisCartItem(CartItem cartItem) {
-        return cartItemRepository.save(cartItem);
-    }
-
-    public List<CartItem> getAllProducts() {
-        return cartItemRepository.findAll();
-
-    }
-
 
     //DELETE
     public void deleteThisCartItem(Long id){
         cartItemRepository.deleteById(id);
     }
 
-
-    public List<CartItem> getCartItemsByUserId(Long loggedInUserId) {
-        return cartItemRepository.findByShoppingCartId(loggedInUserId);
-    }
 }

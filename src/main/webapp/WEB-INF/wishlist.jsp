@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shopping Cart</title>
+    <title>Wishlist</title>
     <link rel="stylesheet" href="/css/stylee.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -50,7 +50,7 @@
 </nav>
 
 <div class="container">
-    <h1 class="mt-2">Shopping Cart</h1>
+    <h1 class="mt-2">Wishlist</h1>
     <table class="table border border-3 border-dark text-center">
         <thead>
         <tr>
@@ -61,29 +61,37 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${cartItems}" var="cartItem">
+        <c:forEach items="${wishlistItems}" var="wishlistItem">
             <tr>
-                <td>${cartItem.product.productName}</td>
-                <td>$${cartItem.product.price}</td>
+                <td>${wishlistItem.product.productName}</td>
+                <td>$${wishlistItem.product.price}</td>
                 <td>
-                    <img src="/assets/${cartItem.product.image}" alt="${cartItem.product.productName}" width="100" height="100">
+                    <img src="/assets/${wishlistItem.product.image}" alt="${wishlistItem.product.productName}" width="100" height="100">
                 </td>
-                <td>
-                    <form:form action="/cart_item/${cartItem.id}/delete" method="delete">
-                        <button class="btn btn-danger mx-1">Delete</button>
+                <td class="d-flex">
+                    <form:form action="/wishlist_item/${wishlistItem.id}/delete" method="delete">
+                        <button class="btn btn-danger mx-1">Remove</button>
                     </form:form>
+                    <form action="/add_wishlist_item_to_cart" method="post">
+                        <input type="hidden" name="productIds" value="${wishlistItem.product.id}">
+                        <button type="submit" class="btn btn-primary">
+                            Add to <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <p class="fs-4 text-end">Total Price: <span class="text-danger fw-bold">$${totalPrice}</span></p>
     <div class="d-flex gap-2 justify-content-end">
-        <form action="/shippingDetails" method="post">
-            <input type="submit" class="btn btn-primary" value="Next">
+        <form action="/add_wishlist_item_to_cart" method="post">
+            <c:forEach items="${wishlistItems}" var="wishlistItem">
+                <input type="hidden" name="productIds" value="${wishlistItem.product.id}">
+            </c:forEach>
+            <button type="submit" class="btn btn-primary">
+                Add all products to <i class="fas fa-shopping-cart"></i>
+            </button>
         </form>
-
-        <a href="/users/home" class="btn btn-secondary">Back</a>
     </div>
 
 </div>

@@ -32,4 +32,5 @@ public class ShoppingCart {
     @Column(updatable=false)
     @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
+
 }
