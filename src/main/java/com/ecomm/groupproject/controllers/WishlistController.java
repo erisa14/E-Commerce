@@ -45,7 +45,7 @@ public class WishlistController {
         model.addAttribute("products", products);
 
         Wishlist wishlist = wishlistService.getWishlistByUserId(userId);
-        Long wishlistId = wishlist.getId(); // Get the wishlistId from the user's shopping cart
+        Long wishlistId = wishlist.getId(); // Get the wishlistId from the user's wishlist
         List<WishlistItem> wishlistItems =  wishlistItemService.getWishlistItemsByUserId(wishlistId);
 
         if (wishlistItems.isEmpty()) {
