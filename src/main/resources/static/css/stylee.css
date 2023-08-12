@@ -107,3 +107,21 @@ th {
     background-color: #5a6268; /* Darker gray background color on hover */
     border-color: #5a6268; /* Darker gray border color on hover */
 }
+
+
+
+
+
+
+
+/* Shipping details + */
+label {
+    color: #343a40; /* Dark gray text color */
+}
+
+/* Customize form input styling */
+.form-control {
+    background-color: #f8f9fa; /* Light gray background color */
+    border-color: #ced4da; /* Light gray border color */
+    color: #212529; /* Dark gray text color */
+}

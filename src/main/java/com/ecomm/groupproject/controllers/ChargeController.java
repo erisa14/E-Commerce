@@ -23,10 +23,7 @@ public class ChargeController {
     StripeService paymentsService;
 
     @PostMapping("/charge")
-    public String charge(
-            @RequestParam(name = "amount") double amount,
-            @RequestParam(name = "stripeToken") String stripeToken,
-            Model model) {
+    public String charge(@RequestParam(name = "amount") double amount, @RequestParam(name = "stripeToken") String stripeToken, Model model) {
         ChargeRequest chargeRequest = new ChargeRequest();
         chargeRequest.setDescription("Example charge");
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
