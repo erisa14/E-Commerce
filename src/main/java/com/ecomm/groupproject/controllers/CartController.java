@@ -26,6 +26,8 @@ public class CartController {
     private ShippingDetailsService shippingDetailsService;
     @Autowired
     private CartItemService cartItemService;
+    @Autowired
+    private WishlistItemService wishlistItemService;
 
 
     // VIEW - CART
@@ -46,10 +48,14 @@ public class CartController {
                 model.addAttribute("categories", categoryService.getAll());
             }
             else {
+                List<CartItem> itemsInCart = cartItemService.getAllCartItems();
+                List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
                 model.addAttribute("cartItems", cartItems);
                 double totalPrice = cartItems.stream().mapToDouble(cartItem -> cartItem.getProduct().getPrice()).sum();
                 model.addAttribute("totalPrice", totalPrice);
                 model.addAttribute("categories", categoryService.getAll());
+                model.addAttribute("numberOfCartItems", itemsInCart.size());
+                model.addAttribute("wishlistItemCount", wishlistItems.size());
             }
             return "shoppingCart.jsp";
         }
@@ -68,7 +74,6 @@ public class CartController {
         }
         User user = userService.findUserById(userId);
         ShoppingCart shoppingCart = user.getShoppingCart();
-
         Product product = new Product();        // Create a new Product instance using the retrieved values
         product.setId(productId);
         newCartItem.setProduct(product);        // Set the Product instance to the newCartItem
@@ -97,6 +102,10 @@ public class CartController {
     @PostMapping("/shippingDetails")
     public String processShippingDetailsForm(@Valid @ModelAttribute("shippingDetails") ShippingDetails shippingDetails, BindingResult result, HttpSession session,Model model) {
         if (result.hasErrors()) {
+            List<CartItem> itemsInCart = cartItemService.getAllCartItems();
+            List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
+            model.addAttribute("numberOfCartItems", itemsInCart.size());
+            model.addAttribute("wishlistItemCount", wishlistItems.size());
             return "shippingDetails.jsp";
         }
         Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");

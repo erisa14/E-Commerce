@@ -35,11 +35,15 @@ public class UserViewController {
         if (userId == null){
             return "redirect:/";
         }
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
         model.addAttribute("user", userService.findUserById(userId));
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("cartItems", cartItemService.getAllCartItems());
-        model.addAttribute("wishlistItems", wishlistItemService.getAllWishlistItems());
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("wishlistItems", wishlistItems);
+        model.addAttribute("numberOfCartItems", cartItems.size());
+        model.addAttribute("wishlistItemCount", wishlistItems.size());
         return "userHome.jsp";
     }
 
@@ -51,6 +55,8 @@ public class UserViewController {
         if (userId == null){
             return "redirect:/";
         }
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
         model.addAttribute("user", userService.findUserById(userId));
         model.addAttribute("categories", categoryService.getAll());
         Category categoryName = categoryService.getByName(category);
@@ -58,6 +64,8 @@ public class UserViewController {
         model.addAttribute("products", productService.getByCategoryName(categoryName));
         model.addAttribute("cartItems", cartItemService.getAllCartItems());
         model.addAttribute("wishlistItems", wishlistItemService.getAllWishlistItems());
+        model.addAttribute("numberOfCartItems", cartItems.size());
+        model.addAttribute("wishlistItemCount", wishlistItems.size());
         return "userCategory.jsp";
     }
 
@@ -69,8 +77,12 @@ public class UserViewController {
         if (userId == null){
             return "redirect:/";
         }
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
         model.addAttribute("product", productService.find(productId));
         model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("numberOfCartItems", cartItems.size());
+        model.addAttribute("wishlistItemCount", wishlistItems.size());
         return "viewProductDetails.jsp";
     }
 

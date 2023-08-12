@@ -31,32 +31,53 @@ public class WishlistController {
 
 
     // VIEW - WISHLIST
+//    @GetMapping("/viewWishlist")
+//    public String viewWishlist(HttpSession session, Model model){
+//        Long userId = (Long) session.getAttribute("loggedInUserId");
+//        if (userId == null){
+//            return "redirect:/";
+//        }
+//        User user = userService.findUserById(userId);
+//        model.addAttribute("user", user);
+//        List<Category> categories = categoryService.getAll();
+//        model.addAttribute("categories", categories);
+//        List<Product> products = productService.getAllProducts();
+//        model.addAttribute("products", products);
+//
+//        Wishlist wishlist = wishlistService.getWishlistByUserId(userId);
+//        Long wishlistId = wishlist.getId(); // Get the wishlistId from the user's wishlist
+//        List<WishlistItem> wishlistItems =  wishlistItemService.getWishlistItemsByUserId(wishlistId);
+//
+//        if (wishlistItems.isEmpty()) {
+//            model.addAttribute("wishlistItems", new ArrayList<WishlistItem>());
+//        }
+//        else {
+//            model.addAttribute("wishlistItems", wishlistItems);
+//            model.addAttribute("wishlistItemCount", wishlistItems.size()); // Add wishlist item count
+//
+//        }
+//
+//        return "wishlist.jsp";
+//    }
+
+    // VIEW - WISHLIST
     @GetMapping("/viewWishlist")
     public String viewWishlist(HttpSession session, Model model){
         Long userId = (Long) session.getAttribute("loggedInUserId");
         if (userId == null){
             return "redirect:/";
         }
-        User user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-        List<Category> categories = categoryService.getAll();
-        model.addAttribute("categories", categories);
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
-
-        Wishlist wishlist = wishlistService.getWishlistByUserId(userId);
-        Long wishlistId = wishlist.getId(); // Get the wishlistId from the user's wishlist
-        List<WishlistItem> wishlistItems =  wishlistItemService.getWishlistItemsByUserId(wishlistId);
-
-        if (wishlistItems.isEmpty()) {
-            model.addAttribute("wishlistItems", new ArrayList<WishlistItem>());
-        }
-        else {
-            model.addAttribute("wishlistItems", wishlistItems);
-        }
+        model.addAttribute("user", userService.findUserById(userId));
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("products", productService.getAllProducts());
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("wishlistItems", wishlistItems);
+        model.addAttribute("numberOfCartItems", cartItems.size());
+        model.addAttribute("wishlistItemCount", wishlistItems.size());
         return "wishlist.jsp";
     }
-
 
     // ADD WISHLIST ITEM
     @PostMapping("/new_wishlist_item")
@@ -98,6 +119,7 @@ public class WishlistController {
         if (userId == null) {
             return "redirect:/";
         }
+
         User user = userService.findUserById(userId);
         ShoppingCart shoppingCart = user.getShoppingCart();
         for (Long productId : productIds) {

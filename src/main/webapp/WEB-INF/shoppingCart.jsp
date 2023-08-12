@@ -92,10 +92,15 @@
             </li>
         </div>
         <a class="navbar-brand" href="/viewWishlist">
-            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart">
+     <span class=" top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
+         ${wishlistItemCount}
+     </span>
+            </i>
         </a>
         <a class="navbar-brand" href="/viewCart">
-            <i class="fas fa-shopping-cart"></i>
+            <i class="fas fa-shopping-cart">
+            </i>
         </a>
         <a class="navbar-brand" href="/logout" >Log out</a>
     </div>
