@@ -23,8 +23,6 @@ public class WishlistController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private WishlistService wishlistService;
-    @Autowired
     private WishlistItemService wishlistItemService;
     @Autowired
     private CartItemService cartItemService;
@@ -37,23 +35,17 @@ public class WishlistController {
         if (userId == null){
             return "redirect:/";
         }
-        User user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-        List<Category> categories = categoryService.getAll();
-        model.addAttribute("categories", categories);
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
-
-        Wishlist wishlist = wishlistService.getWishlistByUserId(userId);
-        Long wishlistId = wishlist.getId(); // Get the wishlistId from the user's shopping cart
-        List<WishlistItem> wishlistItems =  wishlistItemService.getWishlistItemsByUserId(wishlistId);
-
-        if (wishlistItems.isEmpty()) {
-            model.addAttribute("wishlistItems", new ArrayList<WishlistItem>());
-        }
-        else {
-            model.addAttribute("wishlistItems", wishlistItems);
-        }
+        model.addAttribute("user", userService.findUserById(userId));
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("products", productService.getAllProducts());
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        int numberOfCartItems = cartItems.size();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
+        int numberOfWishlistItems = wishlistItems.size();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("numberOfCartItems", numberOfCartItems);
+        model.addAttribute("wishlistItems", wishlistItems);
+        model.addAttribute("numberOfWishlistItems", numberOfWishlistItems);
         return "wishlist";
     }
 

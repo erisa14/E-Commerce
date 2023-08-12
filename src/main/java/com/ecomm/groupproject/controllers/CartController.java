@@ -21,6 +21,10 @@ public class CartController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
+    private ProductService productService;
+    @Autowired
+    private WishlistItemService wishlistItemService;
+    @Autowired
     private ShoppingCartService shoppingCartService;
     @Autowired
     private ShippingDetailsService shippingDetailsService;
@@ -31,31 +35,25 @@ public class CartController {
     // VIEW - CART
     @GetMapping("/viewCart")
     public String viewCart(Model model, HttpSession session) {
-        Long loggedInUserId = (Long) session.getAttribute("loggedInUserId");
-        if (loggedInUserId != null) {
-
-            User user = userService.findUserById(loggedInUserId);
-            model.addAttribute("user", user);
-
-            ShoppingCart cart = shoppingCartService.getShoppingCartByUserId(loggedInUserId);
-            Long cartId = cart.getId(); // Get the cartId from the user's shopping cart
-            List<CartItem> cartItems =  cartItemService.getCartItemsByUserId(cartId);
-            if (cartItems.isEmpty()) {
-                model.addAttribute("cartItems", new ArrayList<CartItem>());
-                model.addAttribute("totalPrice", 0.0);
-                model.addAttribute("categories", categoryService.getAll());
-            }
-            else {
-                model.addAttribute("cartItems", cartItems);
-                double totalPrice = cartItems.stream().mapToDouble(cartItem -> cartItem.getProduct().getPrice()).sum();
-                model.addAttribute("totalPrice", totalPrice);
-                model.addAttribute("categories", categoryService.getAll());
-            }
-            return "shoppingCart";
-        }
-        else {
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null){
             return "redirect:/";
         }
+        model.addAttribute("user", userService.findUserById(userId));
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("products", productService.getAllProducts());
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        int numberOfCartItems = cartItems.size();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
+        int numberOfWishlistItems = wishlistItems.size();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("numberOfCartItems", numberOfCartItems);
+        model.addAttribute("wishlistItems", wishlistItems);
+        model.addAttribute("numberOfWishlistItems", numberOfWishlistItems);
+
+        double totalPrice = cartItems.stream().mapToDouble(cartItem -> cartItem.getProduct().getPrice()).sum();
+        model.addAttribute("totalPrice", totalPrice);
+        return "shoppingCart";
     }
 
 

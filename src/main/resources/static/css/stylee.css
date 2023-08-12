@@ -8,3 +8,102 @@
 .font{
     font-family: "Roboto Light", "Roboto Light", monospace;
 }
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.my-container {
+    padding: 35px 45px;
+}
+.justify-center {                   /*     center     */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* nav icons */
+.my-span {
+    position: absolute;
+    top: 5px;
+    z-index: 2;
+}
+.my-icon {
+    position: absolute;
+    top: 5px;
+    left: -4px;
+    z-index: 1;
+}
+
+/* pics */
+.view-product {
+    border: 2px solid #1254a1;
+    border-radius: 10px;
+    margin: 0px 20px 20px 0px;
+    padding: 15px 10px 0px 10px;
+}
+.view-img {
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    margin: 0 auto;
+}
+.view-image {
+    width: 100%;
+    height: 300px;
+    border: solid 2px #1254a1;
+    color: #1254a1;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+/* Cart / Wishlist  + */
+body {
+    background-color: #f8f9fa; /* Light gray background color */
+}
+.container {
+    background-color: #ffffff; /* White background color */
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #1254a1; /* Blue text color */
+}
+
+th {
+    background-color: #1254a1; /* Blue background color */
+    color: black; /* White text color */
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6; /* Light gray border */
+}
+
+/* Customize button styling */
+.btn-primary {
+    background-color: #1254a1; /* Blue background color */
+    border-color: #1254a1; /* Blue border color */
+}
+
+.btn-primary:hover {
+    background-color: #0c457d; /* Darker blue background color on hover */
+    border-color: #0c457d; /* Darker blue border color on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Gray background color */
+    border-color: #6c757d; /* Gray border color */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray background color on hover */
+    border-color: #5a6268; /* Darker gray border color on hover */
+}

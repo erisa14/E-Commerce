@@ -38,8 +38,14 @@ public class UserViewController {
         model.addAttribute("user", userService.findUserById(userId));
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("cartItems", cartItemService.getAllCartItems());
-        model.addAttribute("wishlistItems", wishlistItemService.getAllWishlistItems());
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        int numberOfCartItems = cartItems.size();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
+        int numberOfWishlistItems = wishlistItems.size();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("numberOfCartItems", numberOfCartItems);
+        model.addAttribute("wishlistItems", wishlistItems);
+        model.addAttribute("numberOfWishlistItems", numberOfWishlistItems);
         return "userHome";
     }
 
@@ -56,8 +62,14 @@ public class UserViewController {
         Category categoryName = categoryService.getByName(category);
         model.addAttribute("categoryName", categoryService.getByName(category));
         model.addAttribute("products", productService.getByCategoryName(categoryName));
-        model.addAttribute("cartItems", cartItemService.getAllCartItems());
-        model.addAttribute("wishlistItems", wishlistItemService.getAllWishlistItems());
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        int numberOfCartItems = cartItems.size();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
+        int numberOfWishlistItems = wishlistItems.size();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("numberOfCartItems", numberOfCartItems);
+        model.addAttribute("wishlistItems", wishlistItems);
+        model.addAttribute("numberOfWishlistItems", numberOfWishlistItems);
         return "userCategory";
     }
 
@@ -69,8 +81,16 @@ public class UserViewController {
         if (userId == null){
             return "redirect:/";
         }
-        model.addAttribute("product", productService.find(productId));
         model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("product", productService.find(productId));
+        List<CartItem> cartItems = cartItemService.getAllCartItems();
+        int numberOfCartItems = cartItems.size();
+        List<WishlistItem> wishlistItems = wishlistItemService.getAllWishlistItems();
+        int numberOfWishlistItems = wishlistItems.size();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("numberOfCartItems", numberOfCartItems);
+        model.addAttribute("wishlistItems", wishlistItems);
+        model.addAttribute("numberOfWishlistItems", numberOfWishlistItems);
         return "viewProductDetails";
     }
 

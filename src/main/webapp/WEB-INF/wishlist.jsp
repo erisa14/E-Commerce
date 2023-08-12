@@ -17,59 +17,16 @@
 
     <!-- MY own CSS -->
     <style>
-        .navbar-background {
-            background-color: #f8f9fa; /* Light gray background color */
+        /* nav icons */
+        .my-span {
+            font-size: 0.5rem;
         }
 
-        body {
-            background-color: #f8f9fa; /* Light gray background color */
-        }
 
-        .container {
-            background-color: #ffffff; /* White background color */
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #1254a1; /* Blue text color */
-        }
-
-        th {
-            background-color: #1254a1; /* Blue background color */
-            color: black; /* White text color */
-        }
-
-        .table-bordered {
-            border: 1px solid #dee2e6; /* Light gray border */
-        }
-
-        /* Customize button styling */
-        .btn-primary {
-            background-color: #1254a1; /* Blue background color */
-            border-color: #1254a1; /* Blue border color */
-        }
-
-        .btn-primary:hover {
-            background-color: #0c457d; /* Darker blue background color on hover */
-            border-color: #0c457d; /* Darker blue border color on hover */
-        }
-
-        .btn-secondary {
-            background-color: #6c757d; /* Gray background color */
-            border-color: #6c757d; /* Gray border color */
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268; /* Darker gray background color on hover */
-            border-color: #5a6268; /* Darker gray border color on hover */
-        }
 
         /* Add background image */
         .background-image {
-            background-image: url('/assets/wishlist.jpeg');
+            background-image: url('/assets/wishlist.jpg');
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -79,25 +36,33 @@
 <!-- NAV BAR -->
 <nav class="navbar navbar-expand-lg navbar-light navbar-style">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/users/home">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation" style="border: transparent solid 1px; color: #1254a1; font-weight: bold">Categories</button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <li class="nav-item dropdown nav nav-pills">
-                <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
-                <ul class="dropdown-menu navbar-style">
-                    <c:forEach items="${categories}" var="category">
-                        <li><a class="dropdown-item" href="/users/${category.name}">${category.name}s</a></li>
-                    </c:forEach>
-                </ul>
+        <ul class="navbar-nav d-flex flex-row me-1">
+            <a class="navbar-brand" href="/users/home">Dashboard</a>
+            <a class="navbar-brand dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Category</a>
+            <ul class="dropdown-menu navbar-style">
+                <c:forEach items="${categories}" var="category">
+                    <li><a class="dropdown-item" href="/users/${category.name}">${category.name}s</a></li>
+                </c:forEach>
+            </ul>
+        </ul>
+
+
+        <ul class="navbar-nav d-flex flex-row me-1" >
+            <li class="me-3" style="position: relative;">
+                <a class="navbar-brand" href="/viewWishlist">
+                    <i class="my-icon fas fa-heart"></i>
+                </a>
             </li>
-        </div>
-        <a class="navbar-brand" href="/viewWishlist">
-            <i class="fas fa-heart"></i>
-        </a>
-        <a class="navbar-brand" href="/viewCart">
-            <i class="fas fa-shopping-cart"></i>
-        </a>
-        <a class="navbar-brand" href="/logout" >Log out</a>
+            <li class="me-3" style="position: relative;">
+                <a class="navbar-brand" href="/viewCart">
+                    <span class="my-span start-100 translate-middle badge rounded-pill bg-danger">${numberOfCartItems}</span>
+                    <i class="my-icon fas fa-shopping-cart"></i>
+                </a>
+            </li>
+            <li>
+                <a class="navbar-brand" href="/logout">Log out</a>
+            </li>
+        </ul>
     </div>
 </nav>
 
