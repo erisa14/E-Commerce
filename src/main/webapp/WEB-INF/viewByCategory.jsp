@@ -30,34 +30,34 @@
         <a class="nav-link" href="/logout">Logout</a>
     </li>
 </ul>
-    <table class="container table table-striped border border-3 border-dark text-center mt-3">
-        <thead>
+<table class="container table table-striped border border-3 border-dark text-center mt-3">
+    <thead>
+    <tr>
+        <th>Product Name</th>
+        <th>Brand</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${products}" var="product">
         <tr>
-            <th>Product Name</th>
-            <th>Brand</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${products}" var="product">
-            <tr>
-                <td>${product.productName}</td>
-                <td>${product.brand}</td>
-                <td>${product.quantity}</td>
-                <td>${product.price}£</td>
-                <td class="d-flex justify-content-center">
-                    <a href="/admin/${product.id}/edit">
-                        <button class="btn btn-primary mx-1">Edit</button>
-                    </a>
+            <td>${product.productName}</td>
+            <td>${product.brand}</td>
+            <td>${product.quantity}</td>
+            <td>${product.price}£</td>
+            <td class="d-flex justify-content-center">
+                <a href="/admin/${product.id}/edit">
+                    <button class="btn btn-primary mx-1">Edit</button>
+                </a>
                 <form:form action="/admin/${product.id}/delete" method="delete">
                     <button class="btn btn-danger mx-1">Delete</button>
                 </form:form>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 </body>
 </html>

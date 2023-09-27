@@ -3,8 +3,7 @@ package com.ecomm.groupproject.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,19 +13,15 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private LocalDate orderDate;
-
-    @NotBlank
-    private String address;
 
     @NotBlank
     private String city;
@@ -35,11 +30,18 @@ public class Order {
     private int zipCode;
     private String notes;
 
-    private double shippingFee=3.50;
+    private double totalAmount;
 
-    public Order() {
-        this.orderDate = LocalDate.now();
-    }
+    private String address1;
+    private String address2;
+
+    private String country;
+
+    private String phoneNumber;
+
+
+
+
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
@@ -61,4 +63,9 @@ public class Order {
     @Column(updatable=false)
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderItem> orderItem;
+
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "shoppingCart_id")
+//    private ShoppingCart shoppingCart;
+
 }

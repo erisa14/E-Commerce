@@ -5,9 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
@@ -17,7 +15,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -73,15 +72,14 @@ public class User {
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Order> orders;
 
-    @Column(updatable=false)
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
-    private List<ShoppingCart> shoppingCarts;
+    @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
+    private ShoppingCart shoppingCart;
 
-    @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToOne(mappedBy="user", fetch = FetchType.LAZY)
     private Wishlist wishlist;
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="shipping_id")
     private ShippingDetails shippingDetails;
-}
 
+}

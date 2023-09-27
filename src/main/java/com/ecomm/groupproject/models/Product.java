@@ -1,9 +1,10 @@
 package com.ecomm.groupproject.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Getter
+@Setter
 @Entity
 @Table(name = "products")
 public class Product {
@@ -25,6 +27,7 @@ public class Product {
     private String productName;
 
     @NotBlank
+    @Size(min=200, max = 1500)
     private String description;
 
     @NotNull
@@ -47,12 +50,13 @@ public class Product {
     @Column(updatable=false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<CartItem> cartItem;
+
+    @Column(updatable=false)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<WishlistItem> wishlistItems;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="wishlist_id")
-    private Wishlist wishlist;
 
 }

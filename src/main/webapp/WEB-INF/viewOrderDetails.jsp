@@ -6,7 +6,7 @@
 <%@ page isErrorPage="true" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Order Details</title>
 </head>
 <body>
 <ul class="nav nav-pills bg-dark d-flex justify-content-between p-2">

@@ -1,8 +1,12 @@
 package com.ecomm.groupproject.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class ChargeRequest {
 
     public enum Currency {
